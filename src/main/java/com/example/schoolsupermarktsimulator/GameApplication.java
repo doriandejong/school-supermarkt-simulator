@@ -1,5 +1,6 @@
 package com.example.schoolsupermarktsimulator;
 
+import com.example.schoolsupermarktsimulator.world.GameWorld;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -12,63 +13,18 @@ import javafx.stage.Stage;
 
 public class GameApplication extends Application {
 
-    private double customerX = 50;
-
     @Override
     public void start(Stage stage) {
-        Canvas canvas = new Canvas(800, 600);
-        GraphicsContext g = canvas.getGraphicsContext2D();
+        System.out.println("STARTING GAME");
 
-        Pane root = new Pane(canvas);
+        GameWorld gameWorld = new GameWorld();
 
-        stage.setScene(new Scene(root));
-        stage.setTitle("Supermarket Simulation");
+        Scene scene = new Scene(gameWorld.getView(), 1280, 720);
+
+        stage.setTitle("School Supermarkt Simulator");
+        stage.setScene(scene);
         stage.show();
 
-        new AnimationTimer() {
-            private long previousTime = 0;
-
-            @Override
-            public void handle(long now) {
-                if (previousTime == 0) {
-                    previousTime = now;
-                    return;
-                }
-
-                double dt = (now - previousTime) / 1_000_000_000.0;
-                previousTime = now;
-
-                update(dt);
-                draw(g);
-            }
-        }.start();
-    }
-
-    private void update(double dt) {
-        customerX += 50 * dt;
-    }
-
-    private void draw(GraphicsContext g) {
-
-        // Clear screen
-        g.setFill(Color.WHITE);
-        g.fillRect(0, 0, 800, 600);
-
-        // Shelf
-        g.setFill(Color.DARKGRAY);
-        g.fillRect(400, 100, 300, 80);
-
-        // Customer
-        g.setFill(Color.BLUE);
-        g.fillOval(customerX, 300, 32, 32);
-
-        // Draw image (from resources)
-//        Image img = new Image(getClass().getResource("/images/test.png").toExternalForm());
-//        g.drawImage(img, 100, 100);
-
-    }
-
-    public static void main(String[] args) {
-        launch();
+        System.out.println("WINDOW SHOWN");
     }
 }
