@@ -1,11 +1,26 @@
 package com.example.schoolsupermarktsimulator.world;
 
+import com.example.schoolsupermarktsimulator.entities.Truck;
 import com.example.schoolsupermarktsimulator.objects.Shelf;
+import javafx.scene.layout.Pane;
 
 public class GameObjectPlacement {
 
-    public GameObjectPlacement() {
-        Shelf emptyShelf = new Shelf(600, 300);
+    private final Pane objects;
 
+    public GameObjectPlacement() {
+        objects = new Pane();
+
+        // Magazijn items
+        objects.getChildren().add(new Shelf(-1, 20).getSprite());
+        objects.getChildren().add(new Shelf(159, 20).getSprite());
+
+
+        Truck truck = new Truck(-270, 430);
+        objects.getChildren().add(truck.getSprite());
+    }
+
+    public Pane getView() {
+        return objects;
     }
 }
