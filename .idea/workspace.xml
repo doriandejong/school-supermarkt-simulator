@@ -5,22 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be3a921f-0b12-4d50-be8d-f11f5aa0e92d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/Wall.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_alt_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_alt_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_alt_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_alt_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/background/wall_side.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/GameApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/GameApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/Floor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/Background.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/FloorTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/FloorTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/GameWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/GameWorld.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/floor/floor_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/floor/floor_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/floor/floor_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/floor/floor_4.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/floor/wall_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/background/wall_1.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +89,7 @@
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6,
@@ -137,7 +122,8 @@
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0"
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "Errors"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -180,5 +166,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
