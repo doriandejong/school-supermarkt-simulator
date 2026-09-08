@@ -5,19 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be3a921f-0b12-4d50-be8d-f11f5aa0e92d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/CashRegister.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/GameObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/Floor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/FloorTile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/GameWorld.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/floor/floor_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/floor/floor_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/floor/floor_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/floor/floor_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/floor/wall_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/objects/cash_register.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/Wall.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_alt_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_alt_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_alt_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_alt_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/background/wall_side.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/GameApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/GameApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/Floor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/Background.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/FloorTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/FloorTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/GameWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/GameWorld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/floor/floor_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/floor/floor_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/floor/floor_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/floor/floor_4.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/background/floor_4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/assets/floor/wall_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/background/wall_1.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,58 +49,58 @@
       <entry key="MS100" value="1.0" />
       <entry key="MS500" value="1.0" />
       <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0000000000000013" />
-      <entry key="S10" value="1.0000000653352168" />
-      <entry key="S30" value="1.0098595723480743" />
-      <entry key="S60" value="1.1978650464268352" />
-      <entry key="M2" value="1.901392017297566" />
-      <entry key="M5" value="3.77338754635009" />
-      <entry key="M10" value="6.3087533198704975" />
-      <entry key="M15" value="8.219147192112189" />
-      <entry key="M30" value="12.337560267955409" />
-      <entry key="H1" value="17.745832497739713" />
-      <entry key="H2" value="23.347957681821907" />
-      <entry key="H4" value="27.753604159862924" />
-      <entry key="D1" value="32.79302341821776" />
-      <entry key="W1" value="33.82287908095634" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0000002974331124" />
+      <entry key="S60" value="1.0013754704161575" />
+      <entry key="M2" value="1.1136895816647836" />
+      <entry key="M5" value="3.1954368839165754" />
+      <entry key="M10" value="8.45901611355976" />
+      <entry key="M15" value="13.335205920740385" />
+      <entry key="M30" value="24.023664155419215" />
+      <entry key="H1" value="36.08295776746006" />
+      <entry key="H2" value="47.34601063532606" />
+      <entry key="H4" value="55.916144964271886" />
+      <entry key="D1" value="65.66109452434864" />
+      <entry key="W1" value="67.65652498327299" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="2.7747962478059788E-188" />
-      <entry key="S30" value="3.027450373573641E-63" />
-      <entry key="S60" value="5.502227161408042E-32" />
-      <entry key="M2" value="2.345682664259606E-16" />
-      <entry key="M5" value="5.598964363440491E-7" />
-      <entry key="M10" value="7.482622777770166E-4" />
-      <entry key="M15" value="0.008242062454752092" />
-      <entry key="M30" value="0.09078580535938477" />
-      <entry key="H1" value="0.30130682926111174" />
-      <entry key="H2" value="0.5489142275994598" />
-      <entry key="H4" value="0.7408874594696954" />
-      <entry key="D1" value="0.9512442413176478" />
-      <entry key="W1" value="0.9928848017915083" />
+      <entry key="S2" value="7.997071747765006E-209" />
+      <entry key="S5" value="5.769956689497735E-84" />
+      <entry key="S10" value="2.4040819458909266E-42" />
+      <entry key="S30" value="1.538896884569537E-14" />
+      <entry key="S60" value="1.788895846407082E-7" />
+      <entry key="M2" value="6.955740455175586E-4" />
+      <entry key="M5" value="0.10421577312156922" />
+      <entry key="M10" value="0.5580883725636202" />
+      <entry key="M15" value="0.9781453925264965" />
+      <entry key="M30" value="1.7428742426419095" />
+      <entry key="H1" value="2.442275071880183" />
+      <entry key="H2" value="3.0270953511727496" />
+      <entry key="H4" value="3.4446774176048724" />
+      <entry key="D1" value="3.895350394364569" />
+      <entry key="W1" value="3.9847133951679856" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9265880618903709" />
-      <entry key="MS500" value="0.9848664428955506" />
-      <entry key="S2" value="0.9961949481330542" />
-      <entry key="S5" value="0.9984762383082806" />
-      <entry key="S10" value="0.999237893984541" />
-      <entry key="S30" value="1.0096030445093445" />
-      <entry key="S60" value="1.19771446872183" />
-      <entry key="M2" value="1.901275646840432" />
-      <entry key="M5" value="3.773251078694056" />
-      <entry key="M10" value="6.309131011635663" />
-      <entry key="M15" value="8.226735051343455" />
-      <entry key="M30" value="12.426822410883286" />
-      <entry key="H1" value="18.0450455851571" />
-      <entry key="H2" value="23.895052107743705" />
-      <entry key="H4" value="28.49327905259002" />
-      <entry key="D1" value="33.74400949731631" />
-      <entry key="W1" value="34.815725401171335" />
+      <entry key="MS100" value="0.9460576467255959" />
+      <entry key="MS500" value="0.9889709163809315" />
+      <entry key="S2" value="0.9972312513520695" />
+      <entry key="S5" value="0.9988915792636801" />
+      <entry key="S10" value="0.9994456359721023" />
+      <entry key="S30" value="0.99981547520777" />
+      <entry key="S60" value="1.001282870727313" />
+      <entry key="M2" value="1.1142708565273292" />
+      <entry key="M5" value="3.2974422050486734" />
+      <entry key="M10" value="9.011552071113902" />
+      <entry key="M15" value="14.306836998834838" />
+      <entry key="M30" value="25.760350756042968" />
+      <entry key="H1" value="38.52023547385104" />
+      <entry key="H2" value="50.369535412400786" />
+      <entry key="H4" value="59.35859088437809" />
+      <entry key="D1" value="69.55598513674738" />
+      <entry key="W1" value="71.64117009330499" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -126,9 +129,12 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
     "node.js.detected.package.jshint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.jshint": "",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0"
@@ -136,11 +142,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/assets/background" />
       <recent name="$PROJECT_DIR$/src/main/resources/assets/floor" />
       <recent name="$PROJECT_DIR$/src/main/resources/assets/objects" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/resources/com/example/schoolsupermarktsimulator/assets/" />
-      <recent name="$PROJECT_DIR$/src/main/resources/com/example/schoolsupermarktsimulator/assets/objects" />
     </key>
   </component>
   <component name="SharedIndexes">

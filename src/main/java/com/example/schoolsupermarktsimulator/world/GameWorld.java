@@ -1,6 +1,5 @@
 package com.example.schoolsupermarktsimulator.world;
 
-import com.example.schoolsupermarktsimulator.objects.CashRegister;
 import javafx.scene.layout.Pane;
 
 public class GameWorld {
@@ -10,10 +9,9 @@ public class GameWorld {
     public GameWorld() {
         world = new Pane();
 
-        Floor floor = new Floor(16, 9);
+        Background background = new Background(16, 9);
 
-        world.getChildren().add(floor.getView());
-
+        world.getChildren().add(background.getView());
     }
 
     public Pane getView() {

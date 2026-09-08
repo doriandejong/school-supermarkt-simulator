@@ -2,13 +2,13 @@ package com.example.schoolsupermarktsimulator.world;
 
 import javafx.scene.layout.Pane;
 
-public class Floor {
+public class Background {
 
     private static final double TILE_SIZE = 80;
 
     private final Pane floor;
 
-    public Floor(int columns, int rows) {
+    public Background(int columns, int rows) {
 
         floor = new Pane();
 
@@ -25,6 +25,10 @@ public class Floor {
                 floor.getChildren().add(tile.getSprite());
             }
         }
+
+        // Voeg de verticale muur toe
+        Wall wall = new Wall(320, 0);
+        floor.getChildren().add(wall.getSprite());
     }
 
     public Pane getView() {

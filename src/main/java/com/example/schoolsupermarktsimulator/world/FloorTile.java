@@ -10,15 +10,22 @@ public class FloorTile {
 
     private static final double SIZE = 80;
 
-    private static final String[] TEXTURES = {
-            "/assets/floor/floor_1.png",
-            "/assets/floor/floor_2.png",
-            "/assets/floor/floor_3.png",
-            "/assets/floor/floor_4.png",
+    private static final String[] FLOOR_TEXTURES_NORMAL = {
+            "/assets/background/floor_1.png",
+            "/assets/background/floor_2.png",
+            "/assets/background/floor_3.png",
+            "/assets/background/floor_4.png",
+    };
+
+    private static final String[] FLOOR_TEXTURES_GREY = {
+            "/assets/background/floor_alt_1.png",
+            "/assets/background/floor_alt_2.png",
+            "/assets/background/floor_alt_3.png",
+            "/assets/background/floor_alt_4.png",
     };
 
     private static final String WALL_TEXTURE =
-            "/assets/floor/wall_1.png";
+            "/assets/background/wall_1.png";
 
     private static final Random RANDOM = new Random();
 
@@ -30,8 +37,14 @@ public class FloorTile {
 
         if (wall) {
             texture = WALL_TEXTURE;
+        } else if (x < SIZE * 4) {
+            texture = FLOOR_TEXTURES_GREY[
+                    RANDOM.nextInt(FLOOR_TEXTURES_GREY.length)
+                    ];
         } else {
-            texture = TEXTURES[RANDOM.nextInt(TEXTURES.length)];
+            texture = FLOOR_TEXTURES_NORMAL[
+                    RANDOM.nextInt(FLOOR_TEXTURES_NORMAL.length)
+                    ];
         }
 
         Image image = new Image(
@@ -47,6 +60,7 @@ public class FloorTile {
 
         sprite.setX(x);
         sprite.setY(y);
+
     }
 
     public ImageView getSprite() {
