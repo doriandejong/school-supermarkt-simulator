@@ -37,7 +37,7 @@ public class FloorTile {
 
         if (wall) {
             texture = WALL_TEXTURE;
-        } else if (x < SIZE * 4) {
+        } else if (x < SIZE * 5) {
             texture = FLOOR_TEXTURES_GREY[
                     RANDOM.nextInt(FLOOR_TEXTURES_GREY.length)
                     ];

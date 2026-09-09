@@ -1,5 +1,6 @@
 package com.example.schoolsupermarktsimulator.world;
 
+import com.example.schoolsupermarktsimulator.objects.Shelf;
 import javafx.scene.layout.Pane;
 
 public class Background {
@@ -26,9 +27,10 @@ public class Background {
             }
         }
 
-        // Voeg de verticale muur toe
-        Wall wall = new Wall(320, 0);
-        floor.getChildren().add(wall.getSprite());
+        // Show walls
+        floor.getChildren().add(new Wall(400, 0).getSprite());
+        floor.getChildren().add(new Wall(0, 0).getSprite());
+        floor.getChildren().add(new Wall(1264, 0).getSprite());
     }
 
     public Pane getView() {

@@ -12,8 +12,8 @@ public class GameObjectPlacement {
         objects = new Pane();
 
         // Magazijn items
-        objects.getChildren().add(new Shelf(-1, 20).getSprite());
-        objects.getChildren().add(new Shelf(159, 20).getSprite());
+        objects.getChildren().add(new Shelf(32, 20).getSprite());
+        objects.getChildren().add(new Shelf(224, 20).getSprite());
         objects.getChildren().add(new Truck(-270, 430).getSprite());
 
     }
