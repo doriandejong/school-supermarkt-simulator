@@ -5,9 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be3a921f-0b12-4d50-be8d-f11f5aa0e92d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/BakeryShelf.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/BlueWall.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/ChestFreezer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/DrinkCooler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/GlassDoor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/ProduceBasket.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/ProduceBin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/ProductStand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/SaleStand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/StaffChair.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/objects/bakery.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/objects/blue_wall.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/objects/chestfreezer_empty.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/objects/drinkcooler_empty.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/objects/glassdoor_horizontal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/objects/glassdoor_vertical.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/objects/producebasket_empty.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/objects/producebin_empty.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/objects/productstand_empty.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/objects/salestand_empty.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/assets/objects/staffchair.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/CashRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/CashRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/Shelf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/Shelf.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/Background.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/Background.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/FloorTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/FloorTile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/GameObjectPlacement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/GameObjectPlacement.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,30 +128,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Launchsetting.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.Launchsetting.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Pieter/Documents/hbo-ict/Jaar 2/2.1 Object Oriented Development/project/school-supermarkt-simulator/src/main/resources/assets/objects",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.jshint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.jshint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "Errors"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Pieter\Documents\hbo-ict\Jaar 2\2.1 Object Oriented Development\project\school-supermarkt-simulator\src\main\resources\assets\objects" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/assets/entities" />
       <recent name="$PROJECT_DIR$/src/main/resources/assets/background" />
@@ -138,14 +165,15 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.schoolsupermarktsimulator.objects" />
       <recent name="com.example.schoolsupermarktsimulator.entities" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10315.125" />
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10315.125" />
+        <option value="bundled-jdk-30f59d01ecdd-26cb7f24e5b0-intellij.indexing.shared.core-IU-253.29346.240" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.29346.240" />
       </set>
     </attachedChunks>
   </component>
@@ -156,6 +184,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1788774431722</updated>
+      <workItem from="1788959991060" duration="13149000" />
     </task>
     <servers />
   </component>

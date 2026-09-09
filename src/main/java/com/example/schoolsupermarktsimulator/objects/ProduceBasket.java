@@ -5,14 +5,14 @@ import javafx.scene.image.ImageView;
 
 import java.util.Objects;
 
-public class CashRegister extends GameObject {
+public class ProduceBasket extends GameObject {
 
-    public CashRegister(double x, double y) {
+    public ProduceBasket(double x, double y) {
         super(x, y);
 
         Image image = new Image(
                 Objects.requireNonNull(CashRegister.class.getResourceAsStream(
-                        "/assets/objects/cash_register.png"
+                        "/assets/objects/producebasket_empty.png"
                 ))
         );
 
@@ -21,7 +21,7 @@ public class CashRegister extends GameObject {
         sprite.setX(x);
         sprite.setY(y);
 
-        sprite.setFitWidth(192);
+        sprite.setFitWidth(48);
         sprite.setPreserveRatio(true);
     }
 }

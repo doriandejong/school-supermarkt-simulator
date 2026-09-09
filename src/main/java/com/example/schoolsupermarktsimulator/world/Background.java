@@ -1,5 +1,6 @@
 package com.example.schoolsupermarktsimulator.world;
 
+import com.example.schoolsupermarktsimulator.objects.GlassDoor;
 import com.example.schoolsupermarktsimulator.objects.Shelf;
 import javafx.scene.layout.Pane;
 
@@ -26,6 +27,11 @@ public class Background {
                 floor.getChildren().add(tile.getSprite());
             }
         }
+
+        // Prebuild doors, walls will render on top of them
+        floor.getChildren().add(new GlassDoor(396, 208, 128, true).getSprite());
+        floor.getChildren().add(new GlassDoor(1260, 240, 128, true).getSprite());
+        floor.getChildren().add(new GlassDoor(1260, 528, 128, true).getSprite());
 
         // Show walls
         floor.getChildren().add(new Wall(400, 0).getSprite());

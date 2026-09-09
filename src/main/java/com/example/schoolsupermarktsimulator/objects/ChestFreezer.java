@@ -5,14 +5,14 @@ import javafx.scene.image.ImageView;
 
 import java.util.Objects;
 
-public class CashRegister extends GameObject {
+public class ChestFreezer extends GameObject {
 
-    public CashRegister(double x, double y) {
+    public ChestFreezer(double x, double y) {
         super(x, y);
 
         Image image = new Image(
                 Objects.requireNonNull(CashRegister.class.getResourceAsStream(
-                        "/assets/objects/cash_register.png"
+                        "/assets/objects/chestfreezer_empty.png"
                 ))
         );
 
@@ -21,7 +21,7 @@ public class CashRegister extends GameObject {
         sprite.setX(x);
         sprite.setY(y);
 
-        sprite.setFitWidth(192);
+        sprite.setFitWidth(120);
         sprite.setPreserveRatio(true);
     }
 }

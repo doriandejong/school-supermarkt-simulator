@@ -21,7 +21,7 @@ public class Shelf extends GameObject {
         sprite.setX(x);
         sprite.setY(y);
 
-        sprite.setFitWidth(160);
+        sprite.setFitWidth(128);
         sprite.setPreserveRatio(true);
     }
 }
