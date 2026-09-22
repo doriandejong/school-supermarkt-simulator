@@ -1,5 +1,6 @@
 package com.example.schoolsupermarktsimulator.world;
 
+import com.example.schoolsupermarktsimulator.entities.Spritesheet;
 import com.example.schoolsupermarktsimulator.entities.Truck;
 import com.example.schoolsupermarktsimulator.objects.*;
 import javafx.scene.layout.Pane;
@@ -25,7 +26,7 @@ public class GameObjectPlacement {
         objects.getChildren().add(new SaleStand(96, 338).getSprite());
         objects.getChildren().add(new SaleStand(160, 338).getSprite());
 
-        objects.getChildren().add(new Truck(-270, 464).getSprite());
+        objects.getChildren().add(new Truck(-270, 464).getSprite(0));
 
         // Winkel (product display) items
         objects.getChildren().add(new BakeryShelf(496, 40).getSprite());
@@ -36,6 +37,10 @@ public class GameObjectPlacement {
 
         objects.getChildren().add(new Shelf(928, 40).getSprite());
         objects.getChildren().add(new Shelf(1056, 40).getSprite());
+//        Spritesheet productSprites = new Spritesheet(928, 40, 60, 100);
+//        objects.getChildren().add(productSprites.getSprite(0));
+//        objects.getChildren().add(productSprites.getSprite(6));
+//        objects.getChildren().add(productSprites.getSprite(14));
 
         // Second row of shelves
         objects.getChildren().add(new Shelf(800, 174).getSprite());

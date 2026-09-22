@@ -15,7 +15,7 @@ public abstract class GameEntity {
         this.y = y;
     }
 
-    public ImageView getSprite() {
+    public ImageView getSprite(int index) {
         return sprite;
     }
 
