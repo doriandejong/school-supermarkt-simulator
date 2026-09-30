@@ -1,18 +1,18 @@
-package com.example.schoolsupermarktsimulator.objects;
+package com.example.schoolsupermarktsimulator.objects.shelves;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.Objects;
 
-public class StaffChair extends GameObject {
+public class BakeryShelf extends Shelf {
 
-    public StaffChair(double x, double y) {
+    public BakeryShelf(double x, double y) {
         super(x, y);
 
         Image image = new Image(
-                Objects.requireNonNull(StaffChair.class.getResourceAsStream(
-                        "/assets/objects/staffchair.png"
+                Objects.requireNonNull(BakeryShelf.class.getResourceAsStream(
+                        "/assets/objects/bakery.png"
                 ))
         );
 
@@ -21,7 +21,7 @@ public class StaffChair extends GameObject {
         sprite.setX(x);
         sprite.setY(y);
 
-        sprite.setFitWidth(48);
+        sprite.setFitWidth(240);
         sprite.setPreserveRatio(true);
     }
 }

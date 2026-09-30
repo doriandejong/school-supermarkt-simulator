@@ -11,7 +11,7 @@ public class GlassDoor extends GameObject {
         super(x, y);
 
         Image image = new Image(
-                Objects.requireNonNull(CashRegister.class.getResourceAsStream(
+                Objects.requireNonNull(GlassDoor.class.getResourceAsStream(
                         "/assets/objects/glassdoor_" + (isVertical ? "vertical" : "horizontal") + ".png"
                 ))
         );

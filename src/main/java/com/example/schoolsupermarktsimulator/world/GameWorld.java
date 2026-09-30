@@ -1,7 +1,6 @@
 package com.example.schoolsupermarktsimulator.world;
 
-import com.example.schoolsupermarktsimulator.entities.Truck;
-import com.example.schoolsupermarktsimulator.objects.Shelf;
+import com.example.schoolsupermarktsimulator.view.StoreFloorView;
 import javafx.scene.layout.Pane;
 
 public class GameWorld {
@@ -12,7 +11,7 @@ public class GameWorld {
         world = new Pane();
 
         Background background = new Background(16, 9);
-        GameObjectPlacement objectPlacement = new GameObjectPlacement();
+        StoreFloorView objectPlacement = new StoreFloorView();
 
         world.getChildren().add(background.getView());
         world.getChildren().add(objectPlacement.getView());

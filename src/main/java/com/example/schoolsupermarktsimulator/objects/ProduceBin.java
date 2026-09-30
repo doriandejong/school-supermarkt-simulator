@@ -11,7 +11,7 @@ public class ProduceBin extends GameObject {
         super(x, y);
 
         Image image = new Image(
-                Objects.requireNonNull(CashRegister.class.getResourceAsStream(
+                Objects.requireNonNull(ProduceBin.class.getResourceAsStream(
                         "/assets/objects/producebin_empty.png"
                 ))
         );

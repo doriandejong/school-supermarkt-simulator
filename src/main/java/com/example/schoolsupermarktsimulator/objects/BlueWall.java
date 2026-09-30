@@ -11,7 +11,7 @@ public class BlueWall extends GameObject {
         super(x, y);
 
         Image image = new Image(
-                Objects.requireNonNull(CashRegister.class.getResourceAsStream(
+                Objects.requireNonNull(BlueWall.class.getResourceAsStream(
                         "/assets/objects/blue_wall.png"
                 ))
         );

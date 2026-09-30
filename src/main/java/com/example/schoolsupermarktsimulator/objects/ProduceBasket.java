@@ -11,7 +11,7 @@ public class ProduceBasket extends GameObject {
         super(x, y);
 
         Image image = new Image(
-                Objects.requireNonNull(CashRegister.class.getResourceAsStream(
+                Objects.requireNonNull(ProduceBasket.class.getResourceAsStream(
                         "/assets/objects/producebasket_empty.png"
                 ))
         );

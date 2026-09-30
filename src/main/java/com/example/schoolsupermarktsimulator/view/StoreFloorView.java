@@ -1,22 +1,24 @@
-package com.example.schoolsupermarktsimulator.world;
+package com.example.schoolsupermarktsimulator.view;
 
-import com.example.schoolsupermarktsimulator.entities.Spritesheet;
-import com.example.schoolsupermarktsimulator.entities.Truck;
 import com.example.schoolsupermarktsimulator.objects.*;
+import com.example.schoolsupermarktsimulator.objects.registers.StaffChair;
+import com.example.schoolsupermarktsimulator.objects.registers.CashRegister;
+import com.example.schoolsupermarktsimulator.objects.shelves.BakeryShelf;
+import com.example.schoolsupermarktsimulator.objects.shelves.Freezer;
+import com.example.schoolsupermarktsimulator.objects.shelves.RegularShelf;
+import com.example.schoolsupermarktsimulator.objects.warehouse.Truck;
 import javafx.scene.layout.Pane;
 
-import java.util.List;
-
-public class GameObjectPlacement {
+public class StoreFloorView {
 
     private final Pane objects;
 
-    public GameObjectPlacement() {
+    public StoreFloorView() {
         objects = new Pane();
 
         // Magazijn items
-        objects.getChildren().add(new Shelf(32, 40).getSprite());
-        objects.getChildren().add(new Shelf(160, 40).getSprite());
+        objects.getChildren().add(new RegularShelf(32, 40).getSprite());
+        objects.getChildren().add(new RegularShelf(160, 40).getSprite());
 
         placeBasketStack(320, 80);
         placeBasketStack(32, 304);
@@ -26,26 +28,26 @@ public class GameObjectPlacement {
         objects.getChildren().add(new SaleStand(96, 338).getSprite());
         objects.getChildren().add(new SaleStand(160, 338).getSprite());
 
-        objects.getChildren().add(new Truck(-270, 464).getSprite(0));
+        objects.getChildren().add(new Truck(-270, 464).getSprite());
 
         // Winkel (product display) items
         objects.getChildren().add(new BakeryShelf(496, 40).getSprite());
 
-        objects.getChildren().add(new DrinkCooler(768, 40).getSprite());
-        objects.getChildren().add(new DrinkCooler(816, 40).getSprite());
-        objects.getChildren().add(new DrinkCooler(864, 40).getSprite());
+        objects.getChildren().add(new Freezer(768, 40).getSprite());
+        objects.getChildren().add(new Freezer(816, 40).getSprite());
+        objects.getChildren().add(new Freezer(864, 40).getSprite());
 
-        objects.getChildren().add(new Shelf(928, 40).getSprite());
-        objects.getChildren().add(new Shelf(1056, 40).getSprite());
+        objects.getChildren().add(new RegularShelf(928, 40).getSprite());
+        objects.getChildren().add(new RegularShelf(1056, 40).getSprite());
 //        Spritesheet productSprites = new Spritesheet(928, 40, 60, 100);
 //        objects.getChildren().add(productSprites.getSprite(0));
 //        objects.getChildren().add(productSprites.getSprite(6));
 //        objects.getChildren().add(productSprites.getSprite(14));
 
         // Second row of shelves
-        objects.getChildren().add(new Shelf(800, 174).getSprite());
-        objects.getChildren().add(new Shelf(928, 174).getSprite());
-        objects.getChildren().add(new Shelf(1056, 174).getSprite());
+        objects.getChildren().add(new RegularShelf(800, 174).getSprite());
+        objects.getChildren().add(new RegularShelf(928, 174).getSprite());
+        objects.getChildren().add(new RegularShelf(1056, 174).getSprite());
 
         // Group of produce bins
         objects.getChildren().add(new ProduceBin(528, 420).getSprite());

@@ -1,7 +1,6 @@
 package com.example.schoolsupermarktsimulator.world;
 
 import com.example.schoolsupermarktsimulator.objects.GlassDoor;
-import com.example.schoolsupermarktsimulator.objects.Shelf;
 import javafx.scene.layout.Pane;
 
 public class Background {
