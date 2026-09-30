@@ -1,4 +1,4 @@
-package com.example.schoolsupermarktsimulator.entities;
+package com.example.schoolsupermarktsimulator;
 
 
 import javafx.scene.image.ImageView;

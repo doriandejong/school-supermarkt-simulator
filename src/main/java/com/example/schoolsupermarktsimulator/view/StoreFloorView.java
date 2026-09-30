@@ -59,8 +59,7 @@ public class StoreFloorView {
         objects.getChildren().add(new ProduceBin(592, 516).getSprite());
         objects.getChildren().add(new ProduceBin(592, 564).getSprite());
 
-        // Wall to separate checkout area from main store
-        objects.getChildren().add(new BlueWall(896, 372, 368).getSprite());
+
 
         // Two cash registers with accompanying chairs
         objects.getChildren().add(new StaffChair(1050, 404).getSprite());

@@ -1,4 +1,4 @@
-package com.example.schoolsupermarktsimulator.entities;
+package com.example.schoolsupermarktsimulator;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;

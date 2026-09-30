@@ -5,46 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be3a921f-0b12-4d50-be8d-f11f5aa0e92d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/controllers/SupermarketController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/controllers/WarehouseController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/people/Cashier.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/people/Customer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/people/Employee.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/people/Manager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/people/Person.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/people/ShelfStocker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/people/WarehouseEmployee.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/products/FreshProduce.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/products/FrozerProduct.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/products/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/products/RegularProduct.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/registers/Register.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/registers/SelfScanRegister.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/Shelf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/VegetableShelf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shopping/MoveableInventory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shopping/ShoppingBasket.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shopping/ShoppingCart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shopping/StockTrolley.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/warehouse/Truck.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/warehouse/Warehouse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/view/SimulationStage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Launchsetting.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Launchsetting.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/entities/Truck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/BakeryShelf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/BakeryShelf.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/BlueWall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/BlueWall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/CashRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/registers/CashRegister.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/ChestFreezer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/DrinkCooler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/Freezer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/GlassDoor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/GlassDoor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/ProduceBasket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/ProduceBasket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/ProduceBin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/ProduceBin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/Shelf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/RegularShelf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/StaffChair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/registers/StaffChair.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/GameApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/Launcher.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/entities/GameEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/GameEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/entities/Spritesheet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/Spritesheet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/BlueWall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/BlueWall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/GlassDoor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/GlassDoor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/view/StoreFloorView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/view/StoreFloorView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/Background.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/Background.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/GameObjectPlacement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/view/StoreFloorView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/GameWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/GameWorld.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,61 +41,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0000000002767067" />
-      <entry key="S10" value="1.00002348822969" />
-      <entry key="S30" value="1.0454450353348264" />
-      <entry key="S60" value="1.3014702194723848" />
-      <entry key="M2" value="1.7783457201342934" />
-      <entry key="M5" value="2.460820658531199" />
-      <entry key="M10" value="3.091070707418726" />
-      <entry key="M15" value="3.618946605007136" />
-      <entry key="M30" value="5.63097454110909" />
-      <entry key="H1" value="14.023969169439594" />
-      <entry key="H2" value="34.04240769684096" />
-      <entry key="H4" value="59.193438222382085" />
-      <entry key="D1" value="98.75980810560156" />
-      <entry key="W1" value="108.30717318692331" />
+      <entry key="MS100" value="1.659753955386447" />
+      <entry key="MS500" value="1.9201894762907135" />
+      <entry key="S2" value="2.041169077737643" />
+      <entry key="S5" value="2.4892582135129446" />
+      <entry key="S10" value="2.9933845202759324" />
+      <entry key="S30" value="3.6206718182895608" />
+      <entry key="S60" value="4.048584169247155" />
+      <entry key="M2" value="4.621178250736037" />
+      <entry key="M5" value="5.381091739060763" />
+      <entry key="M10" value="6.043652244109923" />
+      <entry key="M15" value="6.583176399324885" />
+      <entry key="M30" value="8.605232182405883" />
+      <entry key="H1" value="16.994754004427378" />
+      <entry key="H2" value="37.0083071089399" />
+      <entry key="H4" value="62.164139821485826" />
+      <entry key="D1" value="101.75171313103692" />
+      <entry key="W1" value="111.30590603301474" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="4.989470027344086E-238" />
-      <entry key="MS500" value="3.464263225272555E-48" />
-      <entry key="S2" value="1.3642775132082666E-12" />
-      <entry key="S5" value="1.794572830644173E-5" />
-      <entry key="S10" value="0.004236239878293217" />
-      <entry key="S30" value="0.161805587520731" />
-      <entry key="S60" value="0.4022506526044812" />
-      <entry key="M2" value="0.6342323333044994" />
-      <entry key="M5" value="0.833527511873254" />
-      <entry key="M10" value="0.9269426172862667" />
-      <entry key="M15" value="1.050558343532067" />
-      <entry key="M30" value="1.9750320661407155" />
-      <entry key="H1" value="4.7007797974130545" />
-      <entry key="H2" value="8.954258702937544" />
-      <entry key="H4" value="13.105587207782968" />
-      <entry key="D1" value="18.583325438097994" />
-      <entry key="W1" value="19.78969054056282" />
+      <entry key="MS100" value="1.7614083740080226E-268" />
+      <entry key="MS500" value="2.813014762665399E-54" />
+      <entry key="S2" value="4.0953686631096314E-14" />
+      <entry key="S5" value="4.414862693389571E-6" />
+      <entry key="S10" value="0.0021011574651580906" />
+      <entry key="S30" value="0.12808143957061652" />
+      <entry key="S60" value="0.357884673562052" />
+      <entry key="M2" value="0.5982346308648107" />
+      <entry key="M5" value="0.8142714494250983" />
+      <entry key="M10" value="0.9161729900964453" />
+      <entry key="M15" value="1.0424052718932484" />
+      <entry key="M30" value="1.9673533200355566" />
+      <entry key="H1" value="4.691632794653687" />
+      <entry key="H2" value="8.945542647847107" />
+      <entry key="H4" value="13.099207180413277" />
+      <entry key="D1" value="18.581817351261943" />
+      <entry key="W1" value="19.789461105924673" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9460576467255959" />
-      <entry key="MS500" value="0.9889709163809315" />
-      <entry key="S2" value="0.997231251352731" />
-      <entry key="S5" value="0.9989050149281625" />
-      <entry key="S10" value="1.0031334805760757" />
-      <entry key="S30" value="1.1987105377056089" />
-      <entry key="S60" value="1.6915716284665243" />
-      <entry key="M2" value="2.40172550546107" />
-      <entry key="M5" value="3.2880460492262142" />
-      <entry key="M10" value="4.014364407610042" />
-      <entry key="M15" value="4.6666658408953605" />
-      <entry key="M30" value="7.602902656783758" />
-      <entry key="H1" value="18.7200809402997" />
-      <entry key="H2" value="42.991346810875505" />
-      <entry key="H4" value="72.29467378571971" />
-      <entry key="D1" value="117.34198830477844" />
-      <entry key="W1" value="128.09668598315068" />
+      <entry key="MS100" value="0.8073786317752981" />
+      <entry key="MS500" value="1.5130315545697617" />
+      <entry key="S2" value="1.9142455871580193" />
+      <entry key="S5" value="2.431219964439057" />
+      <entry key="S10" value="2.9628894555572445" />
+      <entry key="S30" value="3.730140095259769" />
+      <entry key="S60" value="4.389542054271488" />
+      <entry key="M2" value="5.206065699033781" />
+      <entry key="M5" value="6.187949417831346" />
+      <entry key="M10" value="6.95558787682131" />
+      <entry key="M15" value="7.622343544554614" />
+      <entry key="M30" value="10.569282844786049" />
+      <entry key="H1" value="21.681622405886415" />
+      <entry key="H2" value="45.94848260538802" />
+      <entry key="H4" value="75.25897110171726" />
+      <entry key="D1" value="120.33238094007537" />
+      <entry key="W1" value="131.09518876861685" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -177,6 +148,9 @@
       <recent name="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/view" />
       <recent name="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/warehouse" />
       <recent name="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/people" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.schoolsupermarktsimulator" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.schoolsupermarktsimulator.objects" />

@@ -1,5 +1,6 @@
-package com.example.schoolsupermarktsimulator.objects;
+package com.example.schoolsupermarktsimulator.world;
 
+import com.example.schoolsupermarktsimulator.objects.GameObject;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
