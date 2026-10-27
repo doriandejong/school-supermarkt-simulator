@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ShelfTest" type="JUnit" factoryName="JUnit">
+    <module name="school-supermarkt-simulator" />
+    <option name="PACKAGE_NAME" value="com.example.schoolsupermarktsimulator.objects.shelves" />
+    <option name="MAIN_CLASS_NAME" value="com.example.schoolsupermarktsimulator.objects.shelves.ShelfTest" />
+    <option name="METHOD_NAME" value="testTakeProductReducesCountAndTriggersWarehouse" />
+    <option name="TEST_OBJECT" value="method" />
+    <option name="VM_PARAMETERS" value="--enable-native-access=javafx.graphics" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

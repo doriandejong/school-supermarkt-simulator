@@ -5,8 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be3a921f-0b12-4d50-be8d-f11f5aa0e92d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/schoolsupermarktsimulator/objects/shelves/ShelfTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/ProductStand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/products/FreshProduce.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/products/FreshProduce.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/products/FrozerProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/products/FrozerProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/products/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/products/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/products/RegularProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/products/RegularProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/BakeryShelf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/BakeryShelf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/Freezer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/Freezer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/RegularShelf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/RegularShelf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/Shelf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/Shelf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/VegetableShelf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/shelves/VegetableShelf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/warehouse/Truck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/warehouse/Truck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/warehouse/Warehouse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/warehouse/Warehouse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/view/StoreFloorView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/view/StoreFloorView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +31,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -32,61 +47,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.659753955386447" />
-      <entry key="MS500" value="1.9201894762907135" />
-      <entry key="S2" value="2.041169077737643" />
-      <entry key="S5" value="2.4892582135129446" />
-      <entry key="S10" value="2.9933845202759324" />
-      <entry key="S30" value="3.6206718182895608" />
-      <entry key="S60" value="4.048584169247155" />
-      <entry key="M2" value="4.621178250736037" />
-      <entry key="M5" value="5.381091739060763" />
-      <entry key="M10" value="6.043652244109923" />
-      <entry key="M15" value="6.583176399324885" />
-      <entry key="M30" value="8.605232182405883" />
-      <entry key="H1" value="16.994754004427378" />
-      <entry key="H2" value="37.0083071089399" />
-      <entry key="H4" value="62.164139821485826" />
-      <entry key="D1" value="101.75171313103692" />
-      <entry key="W1" value="111.30590603301474" />
+      <entry key="MS100" value="6.146524756271296E-31" />
+      <entry key="MS500" value="9.072478131636214E-7" />
+      <entry key="S2" value="0.031144237349648905" />
+      <entry key="S5" value="0.2869826108115295" />
+      <entry key="S10" value="0.724730034932289" />
+      <entry key="S30" value="2.579314522942063" />
+      <entry key="S60" value="5.028260507883683" />
+      <entry key="M2" value="7.655205135889735" />
+      <entry key="M5" value="10.573063205709532" />
+      <entry key="M10" value="13.267332394095183" />
+      <entry key="M15" value="15.5974890824794" />
+      <entry key="M30" value="21.6728693795864" />
+      <entry key="H1" value="32.34042603598455" />
+      <entry key="H2" value="52.99398168985974" />
+      <entry key="H4" value="82.43956960465988" />
+      <entry key="D1" value="136.94592571580154" />
+      <entry key="W1" value="151.39121853781296" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.7614083740080226E-268" />
-      <entry key="MS500" value="2.813014762665399E-54" />
-      <entry key="S2" value="4.0953686631096314E-14" />
-      <entry key="S5" value="4.414862693389571E-6" />
-      <entry key="S10" value="0.0021011574651580906" />
-      <entry key="S30" value="0.12808143957061652" />
-      <entry key="S60" value="0.357884673562052" />
-      <entry key="M2" value="0.5982346308648107" />
-      <entry key="M5" value="0.8142714494250983" />
-      <entry key="M10" value="0.9161729900964453" />
-      <entry key="M15" value="1.0424052718932484" />
-      <entry key="M30" value="1.9673533200355566" />
-      <entry key="H1" value="4.691632794653687" />
-      <entry key="H2" value="8.945542647847107" />
-      <entry key="H4" value="13.099207180413277" />
-      <entry key="D1" value="18.581817351261943" />
-      <entry key="W1" value="19.789461105924673" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.000000077781376" />
+      <entry key="S10" value="1.000278893126672" />
+      <entry key="S30" value="1.0653350062628228" />
+      <entry key="S60" value="1.2556071515777893" />
+      <entry key="M2" value="1.505828000827277" />
+      <entry key="M5" value="1.8618012054378401" />
+      <entry key="M10" value="2.761434671798834" />
+      <entry key="M15" value="3.8141229785794373" />
+      <entry key="M30" value="6.2292704746226155" />
+      <entry key="H1" value="9.448971834643105" />
+      <entry key="H2" value="14.277001031186325" />
+      <entry key="H4" value="19.845534036252236" />
+      <entry key="D1" value="28.526026479817993" />
+      <entry key="W1" value="30.62708084044432" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.8073786317752981" />
-      <entry key="MS500" value="1.5130315545697617" />
-      <entry key="S2" value="1.9142455871580193" />
-      <entry key="S5" value="2.431219964439057" />
-      <entry key="S10" value="2.9628894555572445" />
-      <entry key="S30" value="3.730140095259769" />
-      <entry key="S60" value="4.389542054271488" />
-      <entry key="M2" value="5.206065699033781" />
-      <entry key="M5" value="6.187949417831346" />
-      <entry key="M10" value="6.95558787682131" />
-      <entry key="M15" value="7.622343544554614" />
-      <entry key="M30" value="10.569282844786049" />
-      <entry key="H1" value="21.681622405886415" />
-      <entry key="H2" value="45.94848260538802" />
-      <entry key="H4" value="75.25897110171726" />
-      <entry key="D1" value="120.33238094007537" />
-      <entry key="W1" value="131.09518876861685" />
+      <entry key="MS100" value="1.6246517080067392E-26" />
+      <entry key="MS500" value="6.95797466393734E-6" />
+      <entry key="S2" value="0.06015876214920744" />
+      <entry key="S5" value="0.49163483387576234" />
+      <entry key="S10" value="1.1604703294734515" />
+      <entry key="S30" value="3.361718311729839" />
+      <entry key="S60" value="6.098619942971047" />
+      <entry key="M2" value="9.04587071958547" />
+      <entry key="M5" value="12.379048265435403" />
+      <entry key="M10" value="15.995749914471622" />
+      <entry key="M15" value="19.386450306854577" />
+      <entry key="M30" value="27.88582227785008" />
+      <entry key="H1" value="41.778153595186886" />
+      <entry key="H2" value="67.2624192597797" />
+      <entry key="H4" value="102.27882141868044" />
+      <entry key="D1" value="165.47031371179173" />
+      <entry key="W1" value="182.0180433879678" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -108,11 +123,14 @@
   &quot;keyToString&quot;: {
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;Application.Launchsetting.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ShelfTest.testTakeProductReducesCountAndTriggersWarehouse.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;git-widget-placeholder&quot;: &quot;feature/java-classes&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -140,13 +158,43 @@
       <recent name="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/warehouse" />
       <recent name="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/objects/people" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.example.schoolsupermarktsimulator" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.example.schoolsupermarktsimulator.objects.shelves" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.example.schoolsupermarktsimulator.objects" />
       <recent name="com.example.schoolsupermarktsimulator.entities" />
     </key>
+  </component>
+  <component name="RunManager" selected="Application.Launchsetting">
+    <configuration name="ShelfTest.testTakeProductReducesCountAndTriggersWarehouse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="school-supermarkt-simulator" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.schoolsupermarktsimulator.objects.shelves.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.schoolsupermarktsimulator.objects.shelves" />
+      <option name="MAIN_CLASS_NAME" value="com.example.schoolsupermarktsimulator.objects.shelves.ShelfTest" />
+      <option name="METHOD_NAME" value="testTakeProductReducesCountAndTriggersWarehouse" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="--enable-native-access=javafx.graphics" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ShelfTest.testTakeProductReducesCountAndTriggersWarehouse" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
