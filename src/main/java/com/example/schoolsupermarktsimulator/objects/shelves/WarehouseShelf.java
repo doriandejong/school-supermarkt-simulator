@@ -13,6 +13,7 @@ import java.util.Objects;
 public class WarehouseShelf extends Shelf {
 
     public static final int CAPACITY = 15;
+    public static final int MIN_STOCK_FOR_TRUCK = 5;
 
     // Doosjes op warehouse_shelf.png, van de onderste plank naar boven.
     // x, y, breedte, hoogte in pixels van de texture (256x189).
@@ -76,18 +77,6 @@ public class WarehouseShelf extends Shelf {
 
     public List<ImageView> getStockSlots() {
         return slots;
-    }
-
-    public ImageView copySlot(int index) {
-        ImageView source = slots.get(index);
-        ImageView copy = new ImageView(source.getImage());
-        copy.setViewport(source.getViewport());
-        copy.setFitWidth(source.getFitWidth());
-        copy.setPreserveRatio(true);
-        copy.setX(source.getX());
-        copy.setY(source.getY());
-        copy.setMouseTransparent(true);
-        return copy;
     }
 
     public void restockFromTruck() {

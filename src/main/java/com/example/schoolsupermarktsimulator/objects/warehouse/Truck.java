@@ -20,6 +20,7 @@ public class Truck extends GameObject {
     private boolean orderedAgain;
     private Runnable onArrived;
     private BooleanSupplier canDeliver;
+    private BoxStack boxStack;
 
     public Truck(double x, double y) {
         super(x, y);
@@ -39,6 +40,10 @@ public class Truck extends GameObject {
         sprite.setPreserveRatio(true);
         sprite.setMouseTransparent(true);
         hideOffscreen();
+    }
+
+    public void setBoxStack(BoxStack boxStack) {
+        this.boxStack = boxStack;
     }
 
     public void deliver(BooleanSupplier canDeliver, Runnable onArrived) {
@@ -65,6 +70,9 @@ public class Truck extends GameObject {
         driveIn.setFromX(offscreen);
         driveIn.setToX(0);
         driveIn.setOnFinished(event -> {
+            if (boxStack != null) {
+                boxStack.show();
+            }
             if (onArrived != null) {
                 onArrived.run();
             }

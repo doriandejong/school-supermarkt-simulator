@@ -1,25 +1,26 @@
 package com.example.schoolsupermarktsimulator.view;
 
 import com.example.schoolsupermarktsimulator.objects.*;
+import com.example.schoolsupermarktsimulator.objects.products.FreshProduce;
+import com.example.schoolsupermarktsimulator.objects.products.FrozenProduct;
 import com.example.schoolsupermarktsimulator.objects.products.Product;
+import com.example.schoolsupermarktsimulator.objects.products.RegularProduct;
 import com.example.schoolsupermarktsimulator.objects.registers.StaffChair;
 import com.example.schoolsupermarktsimulator.objects.registers.CashRegister;
+import com.example.schoolsupermarktsimulator.objects.registers.SelfScanRegister;
 import com.example.schoolsupermarktsimulator.objects.shelves.BakeryShelf;
 import com.example.schoolsupermarktsimulator.objects.shelves.Freezer;
 import com.example.schoolsupermarktsimulator.objects.shelves.RegularShelf;
 import com.example.schoolsupermarktsimulator.objects.shelves.Shelf;
+import com.example.schoolsupermarktsimulator.objects.shelves.VegetableShelf;
 import com.example.schoolsupermarktsimulator.objects.shelves.WarehouseShelf;
+import com.example.schoolsupermarktsimulator.objects.warehouse.BoxStack;
 import com.example.schoolsupermarktsimulator.objects.warehouse.Truck;
 import com.example.schoolsupermarktsimulator.objects.warehouse.Warehouse;
-import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
-import javafx.animation.ScaleTransition;
-import javafx.animation.TranslateTransition;
 import javafx.scene.Cursor;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
-import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +38,8 @@ public class StoreFloorView {
     public StoreFloorView() {
         objects = new Pane();
         Truck truck = new Truck(-200, 464);
+        BoxStack boxStack = new BoxStack(256, 592);
+        truck.setBoxStack(boxStack);
         Warehouse warehouse = new Warehouse();
         warehouse.setDeliveryTruck(truck);
 
@@ -56,44 +59,46 @@ public class StoreFloorView {
         objects.getChildren().add(new SaleStand(96, 338).getSprite());
         objects.getChildren().add(new SaleStand(160, 338).getSprite());
 
+        objects.getChildren().addAll(boxStack.getSprites());
         objects.getChildren().add(truck.getSprite());
 
         // Winkel (product display) items
-        addShelf(new BakeryShelf(496, 40, warehouse));
+        objects.getChildren().add(new BakeryShelf(496, 40, warehouse).getSprite());
 
-        addShelf(new Freezer(768, 40, warehouse));
-        addShelf(new Freezer(816, 40, warehouse));
-        addShelf(new Freezer(864, 40, warehouse));
+        // Koelvitrines. Zonder soort kiest de vitrine zelf cola, sap of frisdrank.
+        addFreezer(768, 40, warehouse, FrozenProduct.Kind.COLA);
+        addFreezer(816, 40, warehouse, FrozenProduct.Kind.JUICE);
+        addFreezer(864, 40, warehouse);
 
-        addShelf(new RegularShelf(928, 40, warehouse));
-        addShelf(new RegularShelf(1056, 40, warehouse));
+        // Gewone schappen. Zonder soort kiest het schap zelf een product.
+        addRegularShelf(928, 40, warehouse, RegularProduct.Kind.SNACKS);
+        addRegularShelf(1056, 40, warehouse, RegularProduct.Kind.EGGS);
 //        Spritesheet productSprites = new Spritesheet(928, 40, 60, 100);
 //        objects.getChildren().add(productSprites.getSprite(0));
 //        objects.getChildren().add(productSprites.getSprite(6));
 //        objects.getChildren().add(productSprites.getSprite(14));
 
         // Second row of shelves
-        addShelf(new RegularShelf(800, 174, warehouse));
-        addShelf(new RegularShelf(928, 174, warehouse));
-        addShelf(new RegularShelf(1056, 174, warehouse));
+        addRegularShelf(800, 174, warehouse, RegularProduct.Kind.PASTA);
+        addRegularShelf(928, 174, warehouse, RegularProduct.Kind.CANDY);
+        addRegularShelf(1056, 174, warehouse, RegularProduct.Kind.JAM);
 
-        // Group of produce bins
-        objects.getChildren().add(new ProduceBin(528, 420).getSprite());
-        objects.getChildren().add(new ProduceBin(528, 468).getSprite());
-        objects.getChildren().add(new ProduceBin(528, 516).getSprite());
-        objects.getChildren().add(new ProduceBin(528, 564).getSprite());
-        objects.getChildren().add(new ProduceBin(592, 420).getSprite());
-        objects.getChildren().add(new ProduceBin(592, 468).getSprite());
-        objects.getChildren().add(new ProduceBin(592, 516).getSprite());
-        objects.getChildren().add(new ProduceBin(592, 564).getSprite());
+        // Groenteschappen. Zonder soort kiest het schap zelf meloen, kool of pompoen.
+        addVegetableShelf(528, 420, warehouse, FreshProduce.Kind.MELON);
+        addVegetableShelf(528, 468, warehouse, FreshProduce.Kind.CABBAGE);
+        addVegetableShelf(528, 516, warehouse, FreshProduce.Kind.MELON);
+        addVegetableShelf(528, 564, warehouse, FreshProduce.Kind.PUMPKIN);
+        addVegetableShelf(592, 420, warehouse, FreshProduce.Kind.MELON);
+        addVegetableShelf(592, 468, warehouse, FreshProduce.Kind.CABBAGE);
+        addVegetableShelf(592, 516, warehouse, FreshProduce.Kind.MELON);
+        addVegetableShelf(592, 564, warehouse, FreshProduce.Kind.PUMPKIN);
 
 
 
         // Two cash registers with accompanying chairs
         objects.getChildren().add(new StaffChair(1050, 404).getSprite());
         objects.getChildren().add(new CashRegister(960, 436).getSprite());
-        objects.getChildren().add(new StaffChair(1050, 548).getSprite());
-        objects.getChildren().add(new CashRegister(960, 580).getSprite());
+        objects.getChildren().add(new SelfScanRegister(978, 591).getSprite());
 
     }
 
@@ -125,9 +130,60 @@ public class StoreFloorView {
         objects.getChildren().add(sprite);
         if (shelf instanceof WarehouseShelf warehouseShelf) {
             objects.getChildren().addAll(warehouseShelf.getStockSlots());
-        } else {
+        } else if (!(shelf instanceof VegetableShelf) && !(shelf instanceof Freezer) && !(shelf instanceof RegularShelf)) {
             showStockOnShelf(shelf);
         }
+    }
+
+    private void addRegularShelf(double x, double y, Warehouse warehouse) {
+        addRegularShelf(x, y, warehouse, null);
+    }
+
+    private void addRegularShelf(double x, double y, Warehouse warehouse, RegularProduct.Kind kind) {
+        RegularShelf shelf = kind == null
+                ? new RegularShelf(x, y, warehouse)
+                : new RegularShelf(x, y, warehouse, kind);
+
+        List<Product> products = new ArrayList<>();
+        for (int i = 0; i < START_STOCK; i++) {
+            products.add(new RegularProduct(shelf.getKind()));
+        }
+        shelf.fillShelf(products);
+        addShelf(shelf, false);
+    }
+
+    private void addFreezer(double x, double y, Warehouse warehouse) {
+        addFreezer(x, y, warehouse, null);
+    }
+
+    private void addFreezer(double x, double y, Warehouse warehouse, FrozenProduct.Kind kind) {
+        Freezer freezer = kind == null
+                ? new Freezer(x, y, warehouse)
+                : new Freezer(x, y, warehouse, kind);
+
+        List<Product> products = new ArrayList<>();
+        for (int i = 0; i < START_STOCK; i++) {
+            products.add(new FrozenProduct(freezer.getKind()));
+        }
+        freezer.fillShelf(products);
+        addShelf(freezer, false);
+    }
+
+    private void addVegetableShelf(double x, double y, Warehouse warehouse) {
+        addVegetableShelf(x, y, warehouse, null);
+    }
+
+    private void addVegetableShelf(double x, double y, Warehouse warehouse, FreshProduce.Kind kind) {
+        VegetableShelf shelf = kind == null
+                ? new VegetableShelf(x, y, warehouse)
+                : new VegetableShelf(x, y, warehouse, kind);
+
+        List<Product> products = new ArrayList<>();
+        for (int i = 0; i < START_STOCK; i++) {
+            products.add(new FreshProduce(shelf.getKind()));
+        }
+        shelf.fillShelf(products);
+        addShelf(shelf, false);
     }
 
     private void showStockOnShelf(Shelf shelf) {
@@ -180,67 +236,14 @@ public class StoreFloorView {
     }
 
     private void takeItemFrom(Shelf shelf) {
-        if (shelf instanceof WarehouseShelf warehouseShelf) {
-            int index = shelf.getCurrentStockCount() - 1;
-            if (shelf.takeProduct() == null) {
-                return;
-            }
-            ImageView flying = warehouseShelf.copySlot(index);
-            objects.getChildren().add(flying);
-            flying.toFront();
-            animateOut(flying);
+        if (shelf.takeProduct() == null) {
             return;
         }
 
-        Product taken = shelf.takeProduct();
-        if (taken == null) {
-            return;
+        List<ImageView> icons = stockIcons.get(shelf);
+        if (icons != null && icons.size() > shelf.getCurrentStockCount()) {
+            objects.getChildren().remove(icons.remove(icons.size() - 1));
         }
-
-        List<ImageView> icons = stockIcons.getOrDefault(shelf, List.of());
-        ImageView flying;
-        if (icons.size() > shelf.getCurrentStockCount()) {
-            flying = icons.remove(icons.size() - 1);
-        } else {
-            double x = shelf.getX();
-            double y = shelf.getY();
-            double fitHeight = 28;
-            int variant = 0;
-            if (!icons.isEmpty()) {
-                ImageView source = icons.get(icons.size() - 1);
-                x = source.getX();
-                y = source.getY();
-                fitHeight = source.getFitHeight();
-                if (source.getUserData() instanceof Integer stored) {
-                    variant = stored;
-                }
-            }
-            flying = ProductIcon.create(variant, x, y, fitHeight);
-            flying.setMouseTransparent(true);
-            objects.getChildren().add(flying);
-        }
-
-        flying.toFront();
-        animateOut(flying);
-    }
-
-    private void animateOut(ImageView item) {
-        TranslateTransition move = new TranslateTransition(Duration.millis(480), item);
-        move.setByX(10);
-        move.setByY(64);
-
-        ScaleTransition scale = new ScaleTransition(Duration.millis(480), item);
-        scale.setToX(1.8);
-        scale.setToY(1.8);
-
-        FadeTransition fade = new FadeTransition(Duration.millis(200), item);
-        fade.setDelay(Duration.millis(300));
-        fade.setFromValue(1);
-        fade.setToValue(0);
-
-        ParallelTransition leave = new ParallelTransition(move, scale, fade);
-        leave.setOnFinished(event -> objects.getChildren().remove(item));
-        leave.play();
     }
 
     private void placeBasketStack(double x, double y) {

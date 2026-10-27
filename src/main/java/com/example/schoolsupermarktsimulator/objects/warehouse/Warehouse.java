@@ -30,18 +30,21 @@ public class Warehouse {
 	}
 
 	public void requestRestock(Shelf shelf) {
-		if (!hasRoomInWarehouse()) {
+		if (!warehouseNeedsDelivery()) {
 			return;
 		}
 		System.out.println("Drempelwaarde bereikt voor schap! Er wordt een truck besteld.");
 		if (deliveryTruck != null) {
-			deliveryTruck.deliver(this::hasRoomInWarehouse, () -> recieveTruck(deliveryTruck));
+			deliveryTruck.deliver(this::warehouseNeedsDelivery, () -> recieveTruck(deliveryTruck));
 		}
 	}
 
-	private boolean hasRoomInWarehouse() {
+	private boolean warehouseNeedsDelivery() {
 		for (WarehouseShelf warehouseShelf : warehouseShelves) {
-			if (warehouseShelf.getCurrentStockCount() < warehouseShelf.getCapacity()) {
+			int stock = warehouseShelf.getCurrentStockCount();
+			boolean notFull = stock < warehouseShelf.getCapacity();
+			boolean enoughStock = stock >= WarehouseShelf.MIN_STOCK_FOR_TRUCK;
+			if (notFull && (stock == 0 || enoughStock)) {
 				return true;
 			}
 		}
