@@ -12,7 +12,6 @@ import java.util.List;
  */
 public class Manager extends Employee {
 
-	private int peopleHelped;
 	private final List<Node> round = new ArrayList<>();
 	private int roundIndex;
 	private boolean onCall;
@@ -32,23 +31,6 @@ public class Manager extends Employee {
 	@Override
 	public String roleName() {
 		return "Manager";
-	}
-
-	/**
-	 * Helpt één persoon. Elke aanroep telt als één geholpen klant of collega.
-	 */
-	public void helpPerson() {
-		peopleHelped++;
-	}
-
-	/** @return hoe vaak {@link #helpPerson()} is aangeroepen */
-	public int getPeopleHelped() {
-		return peopleHelped;
-	}
-
-	/** @return true zolang de manager naar een oproep onderweg is of iemand helpt */
-	public boolean isOnCall() {
-		return onCall;
 	}
 
 	/**
@@ -80,7 +62,6 @@ public class Manager extends Employee {
 	 */
 	public void answerCall(Node where, Runnable whenThere) {
 		if (where == null) {
-			helpPerson();
 			if (whenThere != null) {
 				whenThere.run();
 			}
@@ -113,7 +94,6 @@ public class Manager extends Employee {
 		onCall = true;
 		Call call = waitingCalls.removeFirst();
 		setOnRouteFinished(() -> dwell(WorkDuration.HELP_SECONDS, () -> {
-			helpPerson();
 			if (call.whenThere() != null) {
 				call.whenThere().run();
 			}

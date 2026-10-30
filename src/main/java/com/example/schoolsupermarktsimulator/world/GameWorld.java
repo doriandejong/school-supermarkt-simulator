@@ -91,8 +91,8 @@ public class GameWorld {
         kees.setShirt(Color.MEDIUMPURPLE.darker());
         world.getChildren().add(piet.sprite);
         world.getChildren().add(kees.sprite);
-        warehouseController.setWarehouseEmployee(piet);
-        warehouseController.setWarehouseEmployee(kees);
+        warehouseController.addWarehouseEmployee(piet);
+        warehouseController.addWarehouseEmployee(kees);
 
         ShelfStocker inge = new ShelfStocker(nodeMap.getNode(48), 4, "Inge");
         ShelfStocker bram = new ShelfStocker(nodeMap.getNode(52), 8, "Bram");
@@ -103,11 +103,12 @@ public class GameWorld {
         bram.carry(new StockTrolleyFigure(), 30, 8);
         world.getChildren().add(inge.sprite);
         world.getChildren().add(bram.sprite);
-        warehouseController.setShelfStocker(inge);
-        warehouseController.setShelfStocker(bram);
+        warehouseController.addShelfStocker(inge);
+        warehouseController.addShelfStocker(bram);
 
-        // Sara staat naast de stoel bij de kassa, niet in de klantenrij.
-        cashier = new Cashier(nodeMap.getNode(36), 2, "Sara");
+        // De kassamedewerker staat naast de stoel bij de kassa, niet in de klantenrij.
+        cashier = new Cashier(nodeMap.getNode(35), 2, "Sara");
+        cashier.setPosition(1112, 448);
         world.getChildren().add(cashier.sprite);
         cashRegister = floor.getCashRegisters().getFirst();
         // Vooraan bij de band, daarna twee wachtplekken naar links.
@@ -149,7 +150,7 @@ public class GameWorld {
 
         exit = nodeMap.getNode(46);
 
-        // Joop heeft een mand en loopt naar de meloenen, daarna de zelfscan.
+        // Een klant heeft een mand en loopt naar de meloenen, daarna de zelfscan.
         Customer joop = new Customer(nodeMap.getNode(0), 1, "Joop");
         joop.setShirt(Color.RED);
         joop.setBudget(30);
@@ -157,7 +158,7 @@ public class GameWorld {
         joop.setGroceryList(List.of(new Product("Meloen")));
         addCustomer(joop, selfScan);
 
-        // Anne duwt een wagen en rekent af bij de gewone kassa, waar Sara scant.
+        // Een klant duwt een wagen en rekent af bij de gewone kassa, waar de kassamedewerker scant.
         Customer anne = new Customer(nodeMap.getNode(0), 5, "Anne");
         anne.setShirt(Color.CRIMSON);
         anne.setBudget(40);
@@ -166,8 +167,8 @@ public class GameWorld {
         anne.setGroceryList(List.of(new Product("Pasta")));
         addCustomer(anne, cashRegister);
 
-        // Dozen komen binnen. Piet en Kees brengen ze naar de magazijnschappen.
-        // Inge en Bram vullen de schappen zodra er voorraad in het magazijn ligt.
+        // Dozen komen binnen. De magazijnmedewerkers brengen ze naar de magazijnschappen.
+        // De vakkenvullers vullen de schappen zodra er voorraad in het magazijn ligt.
         warehouseController.orderTruck();
         warehouseController.fillFromAvailableStock();
         keepCustomerCount();
@@ -175,12 +176,12 @@ public class GameWorld {
     }
 
     /**
-     * Zet een rij winkelwagens net binnen de deur, onder het bovenpad.
+     * Zet een rij winkelwagens neer
      */
     private void placeCartCorral() {
         for (int i = 0; i < 4; i++) {
             ShoppingCartFigure cart = new ShoppingCartFigure();
-            cart.setCenter(1148 + i * 22, 246);
+            cart.setCenter(1148 + i * 22, 375);
             world.getChildren().add(cart);
         }
     }

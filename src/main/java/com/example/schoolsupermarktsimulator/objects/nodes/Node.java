@@ -22,10 +22,6 @@ public class Node {
         }
     }
 
-    public boolean disconnect(Node removeConnection) {
-        return neighbors.remove(removeConnection);
-    }
-
     public int getId() {
         return id;
     }

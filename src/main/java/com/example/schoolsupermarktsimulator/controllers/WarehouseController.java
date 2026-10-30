@@ -21,8 +21,9 @@ import java.util.Map;
 import java.util.Queue;
 
 /**
- * Regelt het magazijn: dozen van de vrachtwagen naar de magazijnschappen,
- * en van daaruit naar een winkelschap dat op zijn minimum zit.
+ * Regelt het magazijn in drie stappen.
+ * Een schap onder het minimum vraagt voorraad. De vrachtwagen brengt dozen van twee artikelen
+ * naar de magazijnschappen. Vakkenvullers zetten daarvan een kwart van een winkelschap vol.
  * {@link Warehouse} bewaart de schappen en stuurt elke aanvraag hiernaartoe.
  */
 public class WarehouseController {
@@ -33,18 +34,21 @@ public class WarehouseController {
 	private Warehouse warehouse;
 	private Truck truck;
 	private BoxStack boxStack;
+	private Node dockNode;
+
 	private final List<WarehouseEmployee> employees = new ArrayList<>();
 	private final List<ShelfStocker> stockers = new ArrayList<>();
-	private final Map<String, Integer> reservedStock = new HashMap<>();
-	private final Queue<BoxDelivery> pendingBoxes = new ArrayDeque<>();
-	private Runnable deliveryDone;
-	private Node dockNode;
 	private final List<Shelf> shopShelves = new ArrayList<>();
-	private final List<Shelf> pending = new ArrayList<>();
-	private boolean transporting;
-	private boolean deliveryWaiting;
-	private boolean pumping;
-	private boolean restockQueued;
+	private final List<Shelf> shelvesBelowMinimum = new ArrayList<>();
+
+	private final Queue<BoxDelivery> boxesToCarry = new ArrayDeque<>();
+	private final Map<String, Integer> reservedStock = new HashMap<>();
+	private Runnable afterUnloading;
+
+	private boolean unloading;
+	private boolean truckWaiting;
+	private boolean fillingInProgress;
+	private boolean fillRequestedWhileBusy;
 
 	/**
 	 * Koppel het magazijn, de vrachtwagen en de stapel dozen die de vrachtwagen achterlaat.
@@ -59,9 +63,6 @@ public class WarehouseController {
 		this.boxStack = boxStack;
 		if (warehouse != null) {
 			warehouse.setController(this);
-			if (truck != null) {
-				warehouse.setDeliveryTruck(truck);
-			}
 		}
 	}
 
@@ -78,24 +79,22 @@ public class WarehouseController {
 	}
 
 	/**
-	 * Voegt een magazijnmedewerker toe die dozen van de vrachtwagen naar een magazijnschap brengt.
-	 * Meerdere medewerkers pakken ieder een eigen doos.
+	 * Voegt een magazijnmedewerker toe. Iedere medewerker draagt zijn eigen doos.
 	 *
 	 * @param employee de medewerker, mag null zijn
 	 */
-	public void setWarehouseEmployee(WarehouseEmployee employee) {
+	public void addWarehouseEmployee(WarehouseEmployee employee) {
 		if (employee != null && !employees.contains(employee)) {
 			employees.add(employee);
 		}
 	}
 
 	/**
-	 * Voegt een vakkenvuller toe die voorraad van het magazijn naar de winkel brengt.
-	 * Meerdere vakkenvullers vullen tegelijk verschillende schappen.
+	 * Voegt een vakkenvuller toe. Meerdere vakkenvullers vullen tegelijk verschillende schappen.
 	 *
 	 * @param stocker de vakkenvuller, mag null zijn
 	 */
-	public void setShelfStocker(ShelfStocker stocker) {
+	public void addShelfStocker(ShelfStocker stocker) {
 		if (stocker != null && !stockers.contains(stocker)) {
 			stockers.add(stocker);
 		}
@@ -124,19 +123,15 @@ public class WarehouseController {
 			orderTruck();
 			return;
 		}
-		if (!pending.contains(shelf)) {
-			pending.add(shelf);
-		}
+		rememberShelf(shelf);
 		System.out.println("Drempelwaarde bereikt voor " + shelf.getShelfId() + ". Voorraad komt uit het magazijn.");
-		if (hasStockers() && idleStocker() == null && hasStockFor(shelf)) {
-			restockQueued = true;
+		if (stockersAreAllBusy() && hasEnoughForATrip(shelf)) {
+			fillRequestedWhileBusy = true;
 			return;
 		}
-		int moved = supplyShopShelf(shelf);
+		int moved = restockShopShelf(shelf);
 		if (moved > 0 || !needsRestock(shelf)) {
-			if (!needsRestock(shelf)) {
-				pending.remove(shelf);
-			}
+			dropShelfIfRestocked(shelf);
 			return;
 		}
 		orderTruck();
@@ -154,9 +149,8 @@ public class WarehouseController {
 	}
 
 	/**
-	 * De vrachtwagen is aangekomen. Elke doos gaat naar een magazijnschap,
-	 * meegedragen door de magazijnmedewerker als die een route heeft.
-	 * Daarna vult de vakkenvuller de winkelschappen die om voorraad vroegen.
+	 * De vrachtwagen is aangekomen. Elke doos gaat naar een magazijnschap.
+	 * Daarna vullen de vakkenvullers de winkelschappen die om voorraad vroegen.
 	 *
 	 * @param arrived de aangekomen vrachtwagen, mag null zijn als de dozen al gepland zijn
 	 */
@@ -164,22 +158,22 @@ public class WarehouseController {
 		if (warehouse == null) {
 			return;
 		}
-		if (transporting) {
-			deliveryWaiting = true;
+		if (unloading) {
+			truckWaiting = true;
 			return;
 		}
-		transporting = true;
+		unloading = true;
 		System.out.println("Vrachtwagen is aangekomen. Dozen gaan naar de magazijnschappen.");
 		List<BoxDelivery> boxes = planBoxes();
 		if (boxStack != null) {
 			boxStack.show(boxes.size());
 		}
-		transportBoxes(new ArrayDeque<>(boxes), () -> {
-			transporting = false;
-			fulfillPendingShelves();
+		startUnloading(boxes, () -> {
+			unloading = false;
+			restockShelvesBelowMinimum();
 			fillFromAvailableStock();
-			if (deliveryWaiting) {
-				deliveryWaiting = false;
+			if (truckWaiting) {
+				truckWaiting = false;
 				receiveTruck(arrived);
 			}
 		});
@@ -198,13 +192,13 @@ public class WarehouseController {
 		List<Product> found = new ArrayList<>();
 		for (WarehouseShelf shelf : warehouse.getWarehouseShelves()) {
 			for (Product product : shelf.getProducts()) {
-				if (productId.equals(product.getId()) || productId.equals(product.getName())) {
+				if (sameProduct(product, productId)) {
 					found.add(product);
 				}
 			}
 		}
 		for (Product product : warehouse.getLooseStock()) {
-			if (productId.equals(product.getId()) || productId.equals(product.getName())) {
+			if (sameProduct(product, productId)) {
 				found.add(product);
 			}
 		}
@@ -212,41 +206,117 @@ public class WarehouseController {
 	}
 
 	/**
+	 * Laat een vrije vakkenvuller elk winkelschap bijvullen dat nog ruimte heeft
+	 * en waarvoor in het magazijn genoeg voorraad ligt.
+	 * Zonder vakkenvuller gaat de voorraad meteen op het schap.
+	 */
+	public void fillFromAvailableStock() {
+		if (warehouse == null) {
+			return;
+		}
+		if (stockersAreAllBusy() || fillingInProgress) {
+			fillRequestedWhileBusy = true;
+			return;
+		}
+		fillingInProgress = true;
+		try {
+			fillRequestedWhileBusy = false;
+			for (Shelf shop : shopShelves) {
+				fillShelfUntilBlocked(shop);
+				if (stockersAreAllBusy()) {
+					return;
+				}
+			}
+		} finally {
+			fillingInProgress = false;
+		}
+		if (fillRequestedWhileBusy && !stockersAreAllBusy()) {
+			fillFromAvailableStock();
+		}
+	}
+
+	/**
+	 * Vult dit schap zolang er ruimte en genoeg magazijnvoorraad is.
+	 * Stopt zodra een vulbeurt niets meer verzet of alle vakkenvullers bezig zijn.
+	 *
+	 * @param shop winkelschap
+	 */
+	private void fillShelfUntilBlocked(Shelf shop) {
+		while (shop.getCurrentStockCount() < shop.getCapacity() && hasEnoughForATrip(shop)) {
+			if (stockersAreAllBusy()) {
+				fillRequestedWhileBusy = true;
+				return;
+			}
+			int moved = restockShopShelf(shop);
+			if (moved <= 0) {
+				return;
+			}
+			dropShelfIfRestocked(shop);
+			if (stockersAreAllBusy()) {
+				fillRequestedWhileBusy = true;
+				return;
+			}
+		}
+	}
+
+	/**
 	 * Zet voorraad van de magazijnschappen op één winkelschap.
-	 * De vakkenvuller loopt erheen als er een knoop en een kar zijn; anders gaat de voorraad meteen op het schap.
+	 * Een vrije vakkenvuller loopt erheen. Zonder vakkenvuller gaat de voorraad meteen op het schap.
 	 *
 	 * @param shopShelf schap in de winkel
 	 * @return hoeveel artikelen er op de kar of op het schap zijn gezet
 	 */
-	public int supplyShopShelf(Shelf shopShelf) {
+	private int restockShopShelf(Shelf shopShelf) {
 		if (shopShelf == null || shopShelf instanceof WarehouseShelf) {
 			return 0;
 		}
-		ShelfStocker worker = idleStocker();
-		if (hasStockers() && worker == null) {
-			restockQueued = true;
+		if (stockersAreAllBusy()) {
+			fillRequestedWhileBusy = true;
 			return 0;
 		}
 		int missing = shopShelf.getCapacity() - shopShelf.getCurrentStockCount();
 		if (missing <= 0) {
 			return 0;
 		}
-		int available = availableFor(shopShelf);
-		boolean canWalk = worker != null
-				&& worker.getTrolley() != null
-				&& shopShelf.getShelfNode() != null;
-		if (!canWalk) {
-			List<Product> taken = takeMatching(shopShelf, Math.min(missing, available));
-			return taken.isEmpty() ? 0 : shopShelf.fillShelf(taken);
+		ShelfStocker worker = idleStocker();
+		if (worker == null || worker.getTrolley() == null || shopShelf.getShelfNode() == null) {
+			return moveStockImmediately(shopShelf, missing);
 		}
-		int planned = fillAmount(shopShelf);
-		if (planned <= 0 || available < planned || worker.getTrolley().remainingSpace() < planned) {
+		return sendStocker(worker, shopShelf);
+	}
+
+	/**
+	 * Legt de magazijnvoorraad meteen op het winkelschap, zonder dat iemand loopt.
+	 *
+	 * @param shopShelf schap in de winkel
+	 * @param missing hoeveel plekken er nog vrij zijn
+	 * @return hoeveel artikelen er echt op het schap zijn gezet
+	 */
+	private int moveStockImmediately(Shelf shopShelf, int missing) {
+		int amount = Math.min(missing, availableFor(shopShelf));
+		List<Product> taken = takeMatching(shopShelf, amount);
+		if (taken.isEmpty()) {
 			return 0;
 		}
-		Product sample = shopShelf.createStockItem();
-		String stockName = sample == null ? null : sample.getName();
+		return shopShelf.fillShelf(taken);
+	}
+
+	/**
+	 * Stuurt één vakkenvuller naar het magazijnschap en daarna naar het winkelschap.
+	 * De artikelen blijven op het magazijnschap tot het winkelschap gevuld is.
+	 *
+	 * @param worker vrije vakkenvuller met een kar
+	 * @param shopShelf schap dat bijgevuld wordt
+	 * @return aantal artikelen van deze vulbeurt, of 0 als die niet start
+	 */
+	private int sendStocker(ShelfStocker worker, Shelf shopShelf) {
+		int planned = fillAmount(shopShelf);
+		if (planned <= 0 || availableFor(shopShelf) < planned || worker.getTrolley().remainingSpace() < planned) {
+			return 0;
+		}
+		String stockName = productName(shopShelf);
 		reserve(stockName, planned);
-		Node pickup = sourceShelf(shopShelf);
+		Node pickup = pickupNode(shopShelf);
 		System.out.println(worker.getRoleLabel() + " haalt " + planned + " artikelen voor " + shopShelf.getShelfId() + ".");
 		worker.setOnArrived(node -> {
 			if (pickup == null || pickup.equals(node)) {
@@ -254,7 +324,6 @@ public class WarehouseController {
 			}
 		});
 		worker.setOnRouteFinished(() -> worker.dwell(WorkDuration.placeProducts(planned), () -> {
-			// Dozen blijven op het magazijnschap tot het winkelschap echt gevuld wordt.
 			worker.hideCarriedBox();
 			List<Product> taken = takeMatching(shopShelf, planned);
 			release(stockName, planned);
@@ -262,9 +331,7 @@ public class WarehouseController {
 				worker.getTrolley().addProduct(product);
 			}
 			worker.fillShelf(shopShelf);
-			if (!needsRestock(shopShelf)) {
-				pending.remove(shopShelf);
-			}
+			dropShelfIfRestocked(shopShelf);
 			fillFromAvailableStock();
 		}));
 		List<Node> route = new ArrayList<>();
@@ -296,12 +363,12 @@ public class WarehouseController {
 	}
 
 	/**
-	 * Knoop van het magazijnschap waar dit winkelartikel nu ligt, zodat de vakkenvuller de dozen daar ophaalt.
+	 * Knoop van het magazijnschap waar dit winkelartikel nu ligt.
 	 *
 	 * @param shopShelf schap dat dit artikel verkoopt
 	 * @return de loopknoop, of null als er geen voorraad of geen knoop is
 	 */
-	private Node sourceShelf(Shelf shopShelf) {
+	private Node pickupNode(Shelf shopShelf) {
 		Product probe = shopShelf.createStockItem();
 		if (probe == null) {
 			return null;
@@ -314,102 +381,59 @@ public class WarehouseController {
 		return null;
 	}
 
-	/**
-	 * Laat de vakkenvuller elk winkelschap bijvullen dat nog ruimte heeft
-	 * en waarvoor in het magazijn voorraad ligt. Ze pakt één schap per loop.
-	 * Zonder vakkenvuller gaat de voorraad meteen op het schap.
-	 */
-	public void fillFromAvailableStock() {
-		if (warehouse == null) {
-			return;
-		}
-		if (hasStockers() && idleStocker() == null) {
-			restockQueued = true;
-			return;
-		}
-		if (pumping) {
-			restockQueued = true;
-			return;
-		}
-		pumping = true;
-		try {
-			restockQueued = false;
-			for (Shelf shop : shopShelves) {
-				while (shop.getCurrentStockCount() < shop.getCapacity() && hasStockFor(shop)) {
-					if (hasStockers() && idleStocker() == null) {
-						restockQueued = true;
-						return;
-					}
-					int moved = supplyShopShelf(shop);
-					if (moved <= 0) {
-						break;
-					}
-					if (!needsRestock(shop)) {
-						pending.remove(shop);
-					}
-					if (hasStockers() && idleStocker() == null) {
-						return;
-					}
-				}
+	/** Vult elk winkelschap dat nog op de wachtlijst staat. */
+	private void restockShelvesBelowMinimum() {
+		for (Shelf shelf : new ArrayList<>(shelvesBelowMinimum)) {
+			restockShopShelf(shelf);
+			if (!needsRestock(shelf) || stockersAreAllBusy()) {
+				shelvesBelowMinimum.remove(shelf);
 			}
-		} finally {
-			pumping = false;
-		}
-		if (restockQueued && (!hasStockers() || idleStocker() != null)) {
-			fillFromAvailableStock();
 		}
 	}
 
-	/**
-	 * Brengt de geplande dozen één voor één weg.
-	 * Zonder medewerker of zonder loopknoop gaat de doos meteen op het schap.
-	 *
-	 * @param queue dozen die nog weg moeten
-	 * @param after wat er gebeurt als elke doos op een magazijnschap staat
-	 */
-	private void transportBoxes(Queue<BoxDelivery> queue, Runnable after) {
-		if (queue != null) {
-			pendingBoxes.addAll(queue);
-		}
-		deliveryDone = after;
-		dispatchBoxes();
+	/** Geeft de geplande dozen aan de magazijnmedewerkers. */
+	private void startUnloading(List<BoxDelivery> boxes, Runnable after) {
+		boxesToCarry.addAll(boxes);
+		afterUnloading = after;
+		assignBoxes();
 	}
 
 	/**
 	 * Geeft elke vrije magazijnmedewerker één doos.
-	 * Zonder medewerker of zonder loopknoop gaan de dozen meteen op het schap.
+	 * Zonder medewerker of zonder laadklep gaan de dozen meteen op het schap.
 	 */
-	private void dispatchBoxes() {
+	private void assignBoxes() {
 		if (employees.isEmpty() || dockNode == null) {
-			WarehouseEmployee scanner = employees.isEmpty() ? null : employees.getFirst();
-			while (!pendingBoxes.isEmpty()) {
-				placeBox(pendingBoxes.remove(), scanner);
-				if (boxStack != null) {
-					boxStack.hideOne();
-				}
-			}
-			finishDeliveryIfDone();
+			placeBoxesWithoutWalking();
+			finishUnloadingIfDone();
 			return;
 		}
 		for (WarehouseEmployee worker : employees) {
-			if (pendingBoxes.isEmpty()) {
+			if (boxesToCarry.isEmpty()) {
 				break;
 			}
 			if (worker.isBusy() || worker.sprite == null) {
 				continue;
 			}
-			BoxDelivery box = pendingBoxes.remove();
+			BoxDelivery box = boxesToCarry.remove();
 			Node shelfNode = box.shelf().getShelfNode();
 			if (shelfNode == null) {
-				placeBox(box, worker);
-				if (boxStack != null) {
-					boxStack.hideOne();
-				}
+				putBoxOnWarehouseShelf(box, worker);
+				hideOneStackedBox();
 				continue;
 			}
-			beginCarry(worker, box, shelfNode);
+			carryBoxToShelf(worker, box, shelfNode);
 		}
-		finishDeliveryIfDone();
+		finishUnloadingIfDone();
+	}
+
+	/** Zet elke resterende doos meteen op zijn magazijnschap. */
+	private void placeBoxesWithoutWalking() {
+		WarehouseEmployee scanner = employees.isEmpty() ? null : employees.getFirst();
+		while (!boxesToCarry.isEmpty()) {
+			putBoxOnWarehouseShelf(boxesToCarry.remove(), scanner);
+			hideOneStackedBox();
+		}
 	}
 
 	/**
@@ -419,60 +443,48 @@ public class WarehouseController {
 	 * @param box de doos die hij brengt
 	 * @param shelfNode knoop van het magazijnschap
 	 */
-	private void beginCarry(WarehouseEmployee worker, BoxDelivery box, Node shelfNode) {
-		ImageView[] carried = new ImageView[1];
-		worker.setOnMoved(() -> holdBox(worker, carried[0]));
+	private void carryBoxToShelf(WarehouseEmployee worker, BoxDelivery box, Node shelfNode) {
+		CarriedBox carried = new CarriedBox();
+		worker.setOnMoved(() -> holdBox(worker, carried.image));
 		worker.setOnArrived(node -> {
-			if (carried[0] == null && dockNode.equals(node)) {
-				carried[0] = boxStack == null ? null : boxStack.detachTopBox();
-				if (carried[0] != null) {
-					carried[0].toFront();
-				}
-				holdBox(worker, carried[0]);
+			if (dockNode.equals(node)) {
+				pickUpBox(worker, carried);
 			}
 		});
 		worker.setOnRouteFinished(() -> worker.dwell(WorkDuration.PLACE_BOX_SECONDS, () -> {
 			worker.setOnMoved(null);
 			worker.setOnArrived(null);
-			if (carried[0] != null) {
-				carried[0].setVisible(false);
-				if (boxStack != null) {
-					boxStack.release(carried[0]);
-				}
-			}
-			placeBox(box, worker);
-			dispatchBoxes();
+			dropCarriedBox(carried);
+			putBoxOnWarehouseShelf(box, worker);
+			assignBoxes();
 		}));
 		if (dockNode.equals(worker.currentNode)) {
-			carried[0] = boxStack == null ? null : boxStack.detachTopBox();
-			if (carried[0] != null) {
-				carried[0].toFront();
-			}
-			holdBox(worker, carried[0]);
+			pickUpBox(worker, carried);
 		}
 		worker.setWalkingRoute(List.of(dockNode, shelfNode));
 	}
 
-	/** Roept het vervolg aan als elke doos op een schap staat en niemand nog loopt. */
-	private void finishDeliveryIfDone() {
-		if (!pendingBoxes.isEmpty() || deliveryDone == null) {
+	/** Pakt de bovenste doos van de stapel, alleen als deze medewerker er nog geen vasthoudt. */
+	private void pickUpBox(WarehouseEmployee worker, CarriedBox carried) {
+		if (carried.image != null) {
 			return;
 		}
-		for (WarehouseEmployee worker : employees) {
-			if (worker.isBusy()) {
-				return;
-			}
+		carried.image = boxStack == null ? null : boxStack.detachTopBox();
+		if (carried.image != null) {
+			carried.image.toFront();
 		}
-		Runnable done = deliveryDone;
-		deliveryDone = null;
-		for (WarehouseEmployee worker : employees) {
-			worker.setOnMoved(null);
-			worker.setOnArrived(null);
+		holdBox(worker, carried.image);
+	}
+
+	/** Legt de gedragen doos weg zodra die op het magazijnschap staat. */
+	private void dropCarriedBox(CarriedBox carried) {
+		if (carried.image == null) {
+			return;
 		}
+		carried.image.setVisible(false);
 		if (boxStack != null) {
-			boxStack.collect();
+			boxStack.release(carried.image);
 		}
-		done.run();
 	}
 
 	/** Houdt de doos in de handen van deze magazijnmedewerker, boven zijn hoofd. */
@@ -484,13 +496,21 @@ public class WarehouseController {
 		carried.setY(worker.sprite.getCenterY() - 36);
 	}
 
+	/** Haalt één zichtbare doos van de stapel, als die stapel er is. */
+	private void hideOneStackedBox() {
+		if (boxStack != null) {
+			boxStack.hideOne();
+		}
+	}
+
 	/**
 	 * De medewerker scant de inhoud en het magazijnschap krijgt de artikelen.
+	 * Vrije vakkenvullers gaan daarna meteen aan de slag.
 	 *
 	 * @param box doos die op het schap hoort
 	 * @param carrier de medewerker die de doos bracht, of null
 	 */
-	private void placeBox(BoxDelivery box, WarehouseEmployee carrier) {
+	private void putBoxOnWarehouseShelf(BoxDelivery box, WarehouseEmployee carrier) {
 		if (carrier != null) {
 			for (Product product : box.products()) {
 				carrier.scanProduct(product);
@@ -498,18 +518,34 @@ public class WarehouseController {
 		}
 		box.shelf().fillShelf(box.products());
 		System.out.println("Doos met " + box.products().size() + " artikelen staat op " + box.shelf().getShelfId() + ".");
-		// Zodra er voorraad ligt, gaan vrije vakkenvullers meteen aan de slag.
 		fillFromAvailableStock();
 	}
 
-	/** Vult elk winkelschap dat nog op de wachtlijst staat. */
-	private void fulfillPendingShelves() {
-		for (Shelf shelf : new ArrayList<>(pending)) {
-			supplyShopShelf(shelf);
-			if (!needsRestock(shelf) || (hasStockers() && idleStocker() == null)) {
-				pending.remove(shelf);
+	/** Roept het vervolg aan als elke doos op een schap staat en niemand nog loopt. */
+	private void finishUnloadingIfDone() {
+		if (!boxesToCarry.isEmpty() || afterUnloading == null || anEmployeeIsBusy()) {
+			return;
+		}
+		Runnable done = afterUnloading;
+		afterUnloading = null;
+		for (WarehouseEmployee worker : employees) {
+			worker.setOnMoved(null);
+			worker.setOnArrived(null);
+		}
+		if (boxStack != null) {
+			boxStack.collect();
+		}
+		done.run();
+	}
+
+	/** @return true als een magazijnmedewerker nog loopt of een doos aan het wegzetten is */
+	private boolean anEmployeeIsBusy() {
+		for (WarehouseEmployee worker : employees) {
+			if (worker.isBusy()) {
+				return true;
 			}
 		}
+		return false;
 	}
 
 	/**
@@ -519,32 +555,50 @@ public class WarehouseController {
 	 * @return de dozen, klaar om naar een schap gebracht te worden
 	 */
 	private List<BoxDelivery> planBoxes() {
+		return packOntoShelves(loadCargo(demandedProducts()));
+	}
+
+	/**
+	 * Hoeveel van elk artikel de vrachtwagen nog moet brengen.
+	 * Eerst de schappen onder het minimum, anders één doos van elk winkelartikel.
+	 *
+	 * @return naam naar aantal artikelen
+	 */
+	private Map<String, Integer> demandedProducts() {
 		Map<String, Integer> demand = new LinkedHashMap<>();
-		if (!pending.isEmpty()) {
-			for (Shelf shop : pending) {
-				Product sample = shop.createStockItem();
-				if (sample == null || sample.getName() == null) {
-					continue;
-				}
-				int missing = shop.getCapacity() - shop.getCurrentStockCount();
-				int need = Math.max(0, missing - countByName(sample.getName()));
-				if (need > 0) {
-					demand.merge(sample.getName(), need, Integer::sum);
-				}
+		for (Shelf shop : shelvesBelowMinimum) {
+			String name = productName(shop);
+			if (name == null) {
+				continue;
+			}
+			int missing = shop.getCapacity() - shop.getCurrentStockCount();
+			int need = Math.max(0, missing - countByName(name));
+			if (need > 0) {
+				demand.merge(name, need, Integer::sum);
 			}
 		}
-		if (demand.isEmpty()) {
-			for (Shelf shop : shopShelves) {
-				Product sample = shop.createStockItem();
-				if (sample != null && sample.getName() != null) {
-					demand.putIfAbsent(sample.getName(), 2);
-				}
+		if (!demand.isEmpty()) {
+			return demand;
+		}
+		for (Shelf shop : shopShelves) {
+			String name = productName(shop);
+			if (name != null) {
+				demand.putIfAbsent(name, ITEMS_PER_BOX);
 			}
 		}
 		if (demand.isEmpty()) {
 			demand.put("Magazijnproduct", warehouseFreeSpace());
 		}
+		return demand;
+	}
 
+	/**
+	 * Maakt de artikelen die in de dozen gaan, om de beurt per naam, tot het magazijn vol is.
+	 *
+	 * @param demand naam naar aantal dat nog nodig is
+	 * @return de lading, in de volgorde waarin ze ingepakt wordt
+	 */
+	private List<Product> loadCargo(Map<String, Integer> demand) {
 		List<Product> cargo = new ArrayList<>();
 		int space = (warehouseFreeSpace() / ITEMS_PER_BOX) * ITEMS_PER_BOX;
 		boolean added = true;
@@ -560,12 +614,12 @@ public class WarehouseController {
 				added = true;
 			}
 		}
-		return packOntoShelves(cargo);
+		return cargo;
 	}
 
 	/**
 	 * Stopt de lading in dozen van {@link #ITEMS_PER_BOX} artikelen.
-	 * Een magazijnschap kan meerdere van die dozen krijgen, zolang er telkens twee plekken vrij zijn.
+	 * Een magazijnschap krijgt alleen een doos als er twee plekken vrij zijn.
 	 *
 	 * @param cargo alle artikelen die uit de vrachtwagen komen
 	 * @return de dozen, elk met twee artikelen voor één magazijnschap
@@ -606,8 +660,7 @@ public class WarehouseController {
 	 */
 	private Product createProduct(String name) {
 		for (Shelf shelf : shopShelves) {
-			Product sample = shelf.createStockItem();
-			if (sample != null && name.equals(sample.getName())) {
+			if (name.equals(productName(shelf))) {
 				return shelf.createStockItem();
 			}
 		}
@@ -643,24 +696,10 @@ public class WarehouseController {
 	}
 
 	/**
-	 * Legt een artikel dat niet op de kar paste terug op het eerste magazijnschap met ruimte.
-	 *
-	 * @param product artikel dat terug moet
-	 */
-	private void returnToWarehouse(Product product) {
-		for (WarehouseShelf shelf : warehouse.getWarehouseShelves()) {
-			if (shelf.getCurrentStockCount() < shelf.getCapacity()) {
-				shelf.fillShelf(List.of(product));
-				return;
-			}
-		}
-	}
-
-	/**
 	 * @param shopShelf winkelschap
-	 * @return true als het magazijn nog vrije voorraad heeft die op dit schap hoort
+	 * @return true als het magazijn genoeg vrije voorraad heeft voor een vulbeurt
 	 */
-	private boolean hasStockFor(Shelf shopShelf) {
+	private boolean hasEnoughForATrip(Shelf shopShelf) {
 		if (!hasStockers()) {
 			return availableFor(shopShelf) > 0;
 		}
@@ -676,6 +715,11 @@ public class WarehouseController {
 			}
 		}
 		return false;
+	}
+
+	/** @return true als er vakkenvullers zijn en geen van hen vrij is */
+	private boolean stockersAreAllBusy() {
+		return hasStockers() && idleStocker() == null;
 	}
 
 	/** @return een vakkenvuller die niet loopt en niet een schap aan het vullen is, of null */
@@ -696,11 +740,11 @@ public class WarehouseController {
 	 * @return aantal artikelen dat een vakkenvuller nog mag inplannen
 	 */
 	private int availableFor(Shelf shopShelf) {
-		Product sample = shopShelf.createStockItem();
-		if (sample == null || sample.getName() == null) {
+		String name = productName(shopShelf);
+		if (name == null) {
 			return 0;
 		}
-		return Math.max(0, countByName(sample.getName()) - reservedStock.getOrDefault(sample.getName(), 0));
+		return Math.max(0, countByName(name) - reservedStock.getOrDefault(name, 0));
 	}
 
 	/** Houdt artikelen apart voor een vulbeurt, zonder ze al van het magazijnschap te halen. */
@@ -721,6 +765,20 @@ public class WarehouseController {
 			reservedStock.remove(name);
 		} else {
 			reservedStock.put(name, left);
+		}
+	}
+
+	/** Onthoudt een winkelschap dat op of onder zijn minimum zit. */
+	private void rememberShelf(Shelf shelf) {
+		if (!shelvesBelowMinimum.contains(shelf)) {
+			shelvesBelowMinimum.add(shelf);
+		}
+	}
+
+	/** Haalt het schap van de wachtlijst als het weer boven het minimum zit. */
+	private void dropShelfIfRestocked(Shelf shelf) {
+		if (!needsRestock(shelf)) {
+			shelvesBelowMinimum.remove(shelf);
 		}
 	}
 
@@ -757,11 +815,36 @@ public class WarehouseController {
 	}
 
 	/**
+	 * @param shopShelf winkelschap
+	 * @return de verkoopnaam van het artikel op dit schap, of null
+	 */
+	private String productName(Shelf shopShelf) {
+		if (shopShelf == null) {
+			return null;
+		}
+		Product sample = shopShelf.createStockItem();
+		if (sample == null) {
+			return null;
+		}
+		return sample.getName();
+	}
+
+	/** @return true als dit artikel het gezochte id of dezelfde naam heeft */
+	private boolean sameProduct(Product product, String productId) {
+		return productId.equals(product.getId()) || productId.equals(product.getName());
+	}
+
+	/**
 	 * Eén doos: de artikelen en het magazijnschap waar ze naartoe moeten.
 	 *
 	 * @param shelf bestemmingschap
 	 * @param products inhoud van de doos
 	 */
 	private record BoxDelivery(WarehouseShelf shelf, List<Product> products) {
+	}
+
+	/** De doos die een magazijnmedewerker nu in zijn handen heeft. */
+	private static final class CarriedBox {
+		private ImageView image;
 	}
 }

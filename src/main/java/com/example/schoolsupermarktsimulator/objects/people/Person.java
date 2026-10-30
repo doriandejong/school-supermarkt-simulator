@@ -181,11 +181,6 @@ public class Person {
 		this.onMoved = onMoved;
 	}
 
-	/** @return true zolang de loop-animatie nog bezig is */
-	public boolean isWalking() {
-		return mover != null;
-	}
-
 	/**
 	 * @return true zolang deze persoon loopt of stilstaat voor een handeling
 	 * zoals pakken, vullen of afrekenen

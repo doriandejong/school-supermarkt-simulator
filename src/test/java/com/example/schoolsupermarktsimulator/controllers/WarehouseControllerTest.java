@@ -44,7 +44,7 @@ class WarehouseControllerTest {
         warehouse.addWarehouseShelf(storage);
 
         WarehouseEmployee employee = new WarehouseEmployee(new Node(1, 0, 0), 3, "Piet");
-        controller.setWarehouseEmployee(employee);
+        controller.addWarehouseEmployee(employee);
 
         assertNotNull(shop.takeProduct(shop.getProducts().getFirst()));
         assertEquals(shop.getMinimumInventory(), shop.getCurrentStockCount());

@@ -13,7 +13,6 @@ import java.util.Objects;
 public class WarehouseShelf extends Shelf {
 
     public static final int CAPACITY = 15;
-    public static final int MIN_STOCK_FOR_TRUCK = 5;
 
     // Doosjes op warehouse_shelf.png, van de onderste plank naar boven.
     // x, y, breedte, hoogte in pixels van de texture (256x189).
@@ -98,19 +97,6 @@ public class WarehouseShelf extends Shelf {
     @Override
     protected void rememberStockedProduct(Product product) {
         // Magazijnschappen blijven gemengd.
-    }
-
-    /**
-     * Vult dit schap in één keer met anonieme magazijnproducten.
-     * De normale route is {@code WarehouseController}: die brengt dozen één voor één van de vrachtwagen.
-     */
-    public void restockFromTruck() {
-        int missing = getCapacity() - getCurrentStockCount();
-        List<Product> delivery = new ArrayList<>();
-        for (int i = 0; i < missing; i++) {
-            delivery.add(new Product("Magazijnproduct"));
-        }
-        fillShelf(delivery);
     }
 
     @Override

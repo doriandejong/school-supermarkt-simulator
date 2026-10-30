@@ -25,7 +25,6 @@ public class BoxStack {
     private final Set<ImageView> inHand = new HashSet<>();
     private final double originX;
     private final double originY;
-    private boolean waitingToBeShelved;
 
     public BoxStack(double x, double y) {
         this.originX = x;
@@ -58,7 +57,6 @@ public class BoxStack {
     public void show(int count) {
         inHand.clear();
         int visible = Math.max(0, Math.min(count, boxes.size()));
-        waitingToBeShelved = visible > 0;
         for (int i = 0; i < boxes.size(); i++) {
             ImageView box = boxes.get(i);
             boolean onStack = i < visible;
@@ -71,18 +69,6 @@ public class BoxStack {
     }
 
     /**
-     * Zet de hele voorraad sprites zichtbaar. De controller zet daarna het echte aantal.
-     */
-    public void show() {
-        show(boxes.size());
-    }
-
-    /** @return true zolang er nog een zichtbare doos op de stapel staat */
-    public boolean isWaitingToBeShelved() {
-        return waitingToBeShelved;
-    }
-
-    /**
      * Pakt de bovenste doos die nog op de stapel ligt, niet een doos die iemand al vastheeft.
      * Twee medewerkers krijgen zo ieder een eigen doos.
      *
@@ -92,11 +78,9 @@ public class BoxStack {
         for (int i = boxes.size() - 1; i >= 0; i--) {
             ImageView box = boxes.get(i);
             if (box.isVisible() && inHand.add(box)) {
-                waitingToBeShelved = boxes.stream().anyMatch(candidate -> candidate.isVisible() && !inHand.contains(candidate));
                 return box;
             }
         }
-        waitingToBeShelved = false;
         return null;
     }
 
@@ -120,12 +104,10 @@ public class BoxStack {
                 break;
             }
         }
-        waitingToBeShelved = boxes.stream().anyMatch(candidate -> candidate.isVisible() && !inHand.contains(candidate));
     }
 
     /** Haalt de hele stapel weg. Wordt aangeroepen als elke doos op een schap staat. */
     public void collect() {
-        waitingToBeShelved = false;
         inHand.clear();
         for (ImageView box : boxes) {
             box.setVisible(false);

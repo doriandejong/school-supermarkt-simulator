@@ -53,11 +53,6 @@ public class MoveableInventory {
 		products.clear();
 	}
 
-	/** @return true als er niets meer bij past */
-	public boolean isFull() {
-		return products.size() >= capacity;
-	}
-
 	/** @return hoeveel artikelen er nog bij passen */
 	public int remainingSpace() {
 		return capacity - products.size();

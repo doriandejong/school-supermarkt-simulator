@@ -79,10 +79,6 @@ public class StoreFloorView {
         // Gewone schappen. Zonder soort kiest het schap zelf een product.
         addRegularShelf(928, 40, warehouse, RegularProduct.Kind.SNACKS);
         addRegularShelf(1056, 40, warehouse, RegularProduct.Kind.EGGS);
-//        Spritesheet productSprites = new Spritesheet(928, 40, 60, 100);
-//        objects.getChildren().add(productSprites.getSprite(0));
-//        objects.getChildren().add(productSprites.getSprite(6));
-//        objects.getChildren().add(productSprites.getSprite(14));
 
         // Second row of shelves
         addRegularShelf(800, 174, warehouse, RegularProduct.Kind.PASTA);
@@ -98,8 +94,6 @@ public class StoreFloorView {
         addVegetableShelf(592, 468, warehouse, FreshProduce.Kind.CABBAGE);
         addVegetableShelf(592, 516, warehouse, FreshProduce.Kind.MELON);
         addVegetableShelf(592, 564, warehouse, FreshProduce.Kind.PUMPKIN);
-
-
 
         // Two cash registers with accompanying chairs
         objects.getChildren().add(new StaffChair(1050, 404).getSprite());

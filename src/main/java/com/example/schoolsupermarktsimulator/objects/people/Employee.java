@@ -12,7 +12,6 @@ import java.util.List;
  */
 public class Employee extends Person {
 
-	private final int employeeId;
 	private final List<Product> scanned = new ArrayList<>();
 
 	/**
@@ -22,13 +21,7 @@ public class Employee extends Person {
 	 */
 	public Employee(Node startNode, int id, String name) {
 		super(startNode, id, name);
-		this.employeeId = id;
 		sprite.setFill(Color.DODGERBLUE);
-	}
-
-	/** @return het personeelsnummer */
-	public int getEmployeeId() {
-		return employeeId;
 	}
 
 	/** @return Medewerker, tenzij een specifiekere functie dat overschrijft */

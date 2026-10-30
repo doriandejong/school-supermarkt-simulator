@@ -4,17 +4,11 @@ import com.example.schoolsupermarktsimulator.objects.nodes.Node;
 import com.example.schoolsupermarktsimulator.objects.people.Cashier;
 import com.example.schoolsupermarktsimulator.objects.people.Customer;
 import com.example.schoolsupermarktsimulator.objects.people.Manager;
-import com.example.schoolsupermarktsimulator.objects.people.Person;
 import com.example.schoolsupermarktsimulator.objects.people.WorkDuration;
-import com.example.schoolsupermarktsimulator.objects.products.Product;
 import com.example.schoolsupermarktsimulator.objects.registers.Register;
 import com.example.schoolsupermarktsimulator.objects.registers.SelfScanRegister;
 import com.example.schoolsupermarktsimulator.objects.shelves.Shelf;
 import com.example.schoolsupermarktsimulator.objects.shelves.WarehouseShelf;
-import com.example.schoolsupermarktsimulator.objects.shopping.MoveableInventory;
-import com.example.schoolsupermarktsimulator.view.SimulationStage;
-import com.example.schoolsupermarktsimulator.view.StoreFloorView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,25 +17,9 @@ import java.util.stream.Collectors;
 
 public class SupermarketController {
 
-    private boolean isPaused;
-
     private Manager manager;
 
     private final Map<Customer, Visit> visits = new HashMap<>();
-
-    private Shelf[] shelf;
-
-    private StoreFloorView storeFloorView;
-
-    private SimulationStage simulationStage;
-
-    private Product product;
-
-    private Register[] register;
-
-    private Person[] person;
-
-    private MoveableInventory moveableInventory;
 
     /**
      * De manager loopt een ronde tot een zelfscan om een steekproef vraagt.
@@ -52,17 +30,6 @@ public class SupermarketController {
         this.manager = manager;
     }
 
-    public void startSimulation() {
-
-    }
-
-    public void pauseSimulation() {
-
-    }
-
-    public void updateSimulation() {
-
-    }
 
     /**
      * Zoekt de loopknopen van de schappen waar deze klant iets van de boodschappenlijst kan pakken.

@@ -18,9 +18,6 @@ import java.util.Queue;
  */
 public abstract class Register extends GameObject {
 
-	private static int nextId = 1;
-
-	private final int registerId;
 	private boolean open = true;
 	private final Queue<Customer> queue = new ArrayDeque<>();
 	private final List<Node> queueSpots = new ArrayList<>();
@@ -33,26 +30,11 @@ public abstract class Register extends GameObject {
 	 */
 	public Register(double x, double y) {
 		super(x, y);
-		this.registerId = nextId++;
-	}
-
-	/** @return het nummer van deze kassa */
-	public int getRegisterId() {
-		return registerId;
 	}
 
 	/** @return true als er klanten door mogen */
 	public boolean isOpen() {
 		return open;
-	}
-
-	/**
-	 * Open of sluit de kassa. Een gesloten kassa neemt geen nieuwe klant aan.
-	 *
-	 * @param open true om klanten toe te laten
-	 */
-	public void setOpen(boolean open) {
-		this.open = open;
 	}
 
 	/** @return true als de kassa open is en er niemand aan het afrekenen is */
@@ -63,20 +45,6 @@ public abstract class Register extends GameObject {
 	/** @return de klant die nu afrekent, of null */
 	public Customer getCurrentCustomer() {
 		return current;
-	}
-
-	/** @return de knoop waar een klant in de rij gaat staan */
-	public Node getQueueNode() {
-		return queueNode;
-	}
-
-	/**
-	 * Zet de knoop waar een klant naartoe loopt om af te rekenen.
-	 *
-	 * @param queueNode knoop vlak voor deze kassa
-	 */
-	public void setQueueNode(Node queueNode) {
-		this.queueNode = queueNode;
 	}
 
 	/**
@@ -187,20 +155,6 @@ public abstract class Register extends GameObject {
 			queue.add(customer);
 		}
 		return false;
-	}
-
-	/**
-	 * Telt de prijzen van alles wat de klant in de mand of wagen heeft.
-	 *
-	 * @param customer klant die afrekent
-	 * @return het totaalbedrag in euro
-	 */
-	public double calculateTotal(Customer customer) {
-		double total = 0;
-		for (Product product : productsOf(customer)) {
-			total += product.getPrice();
-		}
-		return total;
 	}
 
 	/**

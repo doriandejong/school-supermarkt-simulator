@@ -44,11 +44,6 @@ public class Customer extends Person {
 		return "Klant";
 	}
 
-	/** @return het budget in euro dat deze klant mag uitgeven */
-	public double getBudget() {
-		return budget;
-	}
-
 	/**
 	 * Zet hoeveel euro de klant bij zich heeft.
 	 *
@@ -118,23 +113,6 @@ public class Customer extends Person {
 			return false;
 		}
 		spent += product.getPrice();
-		return true;
-	}
-
-	/**
-	 * Haalt een artikel uit de mand of wagen en trekt de prijs van het uitgegeven bedrag af.
-	 *
-	 * @param product het exemplaar dat terug moet
-	 * @return true als het exemplaar in de mand of wagen zat
-	 */
-	public boolean putBackProduct(Product product) {
-		if (aid == null || product == null || !aid.removeProduct(product)) {
-			return false;
-		}
-		spent -= product.getPrice();
-		if (spent < 0) {
-			spent = 0;
-		}
 		return true;
 	}
 

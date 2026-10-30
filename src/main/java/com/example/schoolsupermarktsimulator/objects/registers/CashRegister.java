@@ -35,11 +35,6 @@ public class CashRegister extends Register {
         sprite.setPreserveRatio(true);
     }
 
-    /** @return de kassamedewerker die hier scant, of null als de kassa onbemand is */
-    public Cashier getCashier() {
-        return cashier;
-    }
-
     /**
      * Zet de kassamedewerker achter deze kassa. Zonder medewerker lukt afrekenen niet.
      *

@@ -15,9 +15,7 @@ import java.util.List;
  */
 public class Warehouse {
 
-	private int capacity;
 	private final List<Product> stock = new ArrayList<>();
-	private Truck deliveryTruck;
 	private final List<WarehouseShelf> warehouseShelves = new ArrayList<>();
 	private WarehouseController controller;
 
@@ -28,18 +26,6 @@ public class Warehouse {
 	 */
 	public void setController(WarehouseController controller) {
 		this.controller = controller;
-	}
-
-	/**
-	 * @param deliveryTruck de vrachtwagen die nieuwe dozen brengt
-	 */
-	public void setDeliveryTruck(Truck deliveryTruck) {
-		this.deliveryTruck = deliveryTruck;
-	}
-
-	/** @return de vrachtwagen, of null als er nog geen gekoppeld is */
-	public Truck getDeliveryTruck() {
-		return deliveryTruck;
 	}
 
 	/**
@@ -96,17 +82,5 @@ public class Warehouse {
 	/** @return de losse voorraad die niet op een schap ligt */
 	public List<Product> getLooseStock() {
 		return stock;
-	}
-
-	/** @return de totale capaciteit als die gezet is */
-	public int getCapacity() {
-		return capacity;
-	}
-
-	/**
-	 * @param capacity hoeveel artikelen het magazijn in totaal kan hebben
-	 */
-	public void setCapacity(int capacity) {
-		this.capacity = capacity;
 	}
 }

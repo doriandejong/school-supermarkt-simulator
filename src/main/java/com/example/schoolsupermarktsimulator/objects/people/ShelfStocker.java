@@ -63,7 +63,7 @@ public class ShelfStocker extends Employee {
 			carriedBox = new ImageView(image);
 			carriedBox.setFitWidth(28);
 			carriedBox.setPreserveRatio(true);
-			carry(carriedBox, -6, -32);
+			carry(carriedBox, 18, -10);
 		}
 		carriedBox.setVisible(true);
 		carriedBox.toFront();
