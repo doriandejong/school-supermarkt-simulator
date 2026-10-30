@@ -65,24 +65,24 @@ public class NodeMap {
         nodes.add(new Node(29, 680, 680));
         nodes.add(new Node(30, 800, 540));
 
-        // Kassa
-        nodes.add(new Node(31, 910, 540));
-        nodes.add(new Node(32, 940, 540));
-        nodes.add(new Node(33, 970, 540));
-        nodes.add(new Node(34, 1000, 540));
-        nodes.add(new Node(35, 1030, 540));
-        nodes.add(new Node(36, 1080, 540));
+        // Kassa. De toonbank ligt ongeveer op y 447-529. De rij staat ervoor, niet erin.
+        nodes.add(new Node(31, 900, 560));
+        nodes.add(new Node(32, 980, 560));
+        nodes.add(new Node(33, 1048, 560));
+        nodes.add(new Node(34, 1120, 560));
+        nodes.add(new Node(35, 1112, 470)); // Achter de toonbank, bij de kassamedewerker
+        nodes.add(new Node(36, 1185, 560));
 
-        // Zelfscan links
-        nodes.add(new Node(37, 880, 640));
-        nodes.add(new Node(38, 910, 640));
-        nodes.add(new Node(39, 950, 640));
+        // Zelfscan. De scanner zit aan de bovenkant van het apparaat (ongeveer y 591).
+        // De rij loopt daarlangs, niet onder het apparaat door.
+        nodes.add(new Node(37, 860, 575));
+        nodes.add(new Node(38, 970, 575));
+        nodes.add(new Node(39, 1058, 575));
 
-        // Zelfscan rechts
-        nodes.add(new Node(40, 950, 705));
-        nodes.add(new Node(41, 1130, 705));
-        nodes.add(new Node(42, 1160, 705));
-        nodes.add(new Node(43, 1160, 640));
+        nodes.add(new Node(40, 900, 575));
+        nodes.add(new Node(41, 1140, 575));
+        nodes.add(new Node(42, 1170, 575));
+        nodes.add(new Node(43, 1200, 575));
 
         // Naar uitgang
         nodes.add(new Node(44, 1200, 580));
@@ -170,27 +170,26 @@ public class NodeMap {
         connectBidirectional(12, 30);
         connectBidirectional(18, 30);
 
-        // Kassa
+        // Kassa: de rij loopt naar de band, daarna rechts langs de toonbank naar de uitgang.
         connectBidirectional(30, 31);
         connectBidirectional(31, 32);
         connectBidirectional(32, 33);
         connectBidirectional(33, 34);
-        connectBidirectional(34, 35);
-        connectBidirectional(35, 36);
+        connectBidirectional(34, 36);
+        connectBidirectional(36, 44);
 
-        // Zelfscan links
+        // Zelfscan: langs de bovenkant naar de scanner, daarna rechts naar de uitgang.
         connect(30, 37);
         connect(37, 38);
         connect(38, 39);
+        connect(39, 41);
+        connect(41, 43);
 
-        // Zelfscan rechts
         connect(30, 40);
-        connect(40, 41);
-        connect(41, 42);
+        connect(40, 42);
         connect(42, 43);
 
         // Naar uitgang
-        connect(39, 44);
         connect(43, 44);
         connect(44, 45);
         connect(45, 46);

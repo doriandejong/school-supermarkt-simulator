@@ -5,16 +5,18 @@ import java.util.concurrent.ThreadLocalRandom;
 public class FrozenProduct extends Product {
 
     public enum Kind {
-        COLA("Cola", "/assets/objects/drinkcooler_cola.png"),
-        JUICE("Sap", "/assets/objects/drinkcooler_juice.png"),
-        SODA("Frisdrank", "/assets/objects/drinkcooler_soda.png");
+        COLA("Cola", "/assets/objects/drinkcooler_cola.png", 1.59),
+        JUICE("Sap", "/assets/objects/drinkcooler_juice.png", 1.79),
+        SODA("Frisdrank", "/assets/objects/drinkcooler_soda.png", 1.69);
 
         private final String displayName;
         private final String texture;
+        private final double price;
 
-        Kind(String displayName, String texture) {
+        Kind(String displayName, String texture, double price) {
             this.displayName = displayName;
             this.texture = texture;
+            this.price = price;
         }
 
         public String getDisplayName() {
@@ -23,6 +25,10 @@ public class FrozenProduct extends Product {
 
         public String getTexture() {
             return texture;
+        }
+
+        public double getPrice() {
+            return price;
         }
 
         public static Kind random() {
@@ -34,7 +40,7 @@ public class FrozenProduct extends Product {
     private final Kind kind;
 
     public FrozenProduct(Kind kind) {
-        super(kind.name().toLowerCase(), kind.getDisplayName(), 0);
+        super(kind.name().toLowerCase(), kind.getDisplayName(), kind.getPrice());
         this.kind = kind;
     }
 

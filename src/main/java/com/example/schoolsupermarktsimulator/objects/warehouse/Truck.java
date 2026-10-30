@@ -11,6 +11,10 @@ import javafx.util.Duration;
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
 
+/**
+ * De vrachtwagen die dozen buiten het magazijn afzet.
+ * Zodra hij stilstaat, laat de {@code WarehouseController} een medewerker de dozen naar binnen brengen.
+ */
 public class Truck extends GameObject {
 
     private static final double DRIVE_SECONDS = 1.5;
@@ -42,10 +46,23 @@ public class Truck extends GameObject {
         hideOffscreen();
     }
 
+    /**
+     * Koppelt de stapel dozen die zichtbaar wordt als de vrachtwagen aan de laadklep staat.
+     *
+     * @param boxStack dozen die daarna naar de magazijnschappen gaan
+     */
     public void setBoxStack(BoxStack boxStack) {
         this.boxStack = boxStack;
     }
 
+    /**
+     * Rijdt de vrachtwagen naar de laadklep als er nog plek is in het magazijn.
+     * Bij aankomst worden de dozen getoond en daarna {@code onArrived} aangeroepen,
+     * zodat de controller ze naar de schappen kan brengen.
+     *
+     * @param canDeliver true zolang een magazijnschap nog ruimte heeft
+     * @param onArrived wat er gebeurt op het moment dat de vrachtwagen stilstaat
+     */
     public void deliver(BooleanSupplier canDeliver, Runnable onArrived) {
         this.canDeliver = canDeliver;
         this.onArrived = onArrived;
@@ -70,9 +87,6 @@ public class Truck extends GameObject {
         driveIn.setFromX(offscreen);
         driveIn.setToX(0);
         driveIn.setOnFinished(event -> {
-            if (boxStack != null) {
-                boxStack.show();
-            }
             if (onArrived != null) {
                 onArrived.run();
             }

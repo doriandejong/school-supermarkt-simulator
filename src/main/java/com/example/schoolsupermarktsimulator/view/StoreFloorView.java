@@ -1,6 +1,8 @@
 package com.example.schoolsupermarktsimulator.view;
 
+import com.example.schoolsupermarktsimulator.controllers.WarehouseController;
 import com.example.schoolsupermarktsimulator.objects.*;
+import com.example.schoolsupermarktsimulator.objects.nodes.Node;
 import com.example.schoolsupermarktsimulator.objects.products.FreshProduce;
 import com.example.schoolsupermarktsimulator.objects.products.FrozenProduct;
 import com.example.schoolsupermarktsimulator.objects.products.Product;
@@ -31,9 +33,13 @@ public class StoreFloorView {
 
     // Zelfde startvoorraad als in ShelfTest: na één klik blijft er 10 over.
     private static final int START_STOCK = 11;
-    private List<Shelf> allShelves = new ArrayList<>();
+    private final List<Shelf> allShelves = new ArrayList<>();
+    private final List<WarehouseShelf> warehouseShelves = new ArrayList<>();
+    private final List<CashRegister> cashRegisters = new ArrayList<>();
+    private final List<SelfScanRegister> selfScanRegisters = new ArrayList<>();
     private final Pane objects;
     private final Map<Shelf, List<ImageView>> stockIcons = new HashMap<>();
+    private final WarehouseController warehouseController = new WarehouseController();
 
     public StoreFloorView() {
         objects = new Pane();
@@ -41,7 +47,7 @@ public class StoreFloorView {
         BoxStack boxStack = new BoxStack(256, 592);
         truck.setBoxStack(boxStack);
         Warehouse warehouse = new Warehouse();
-        warehouse.setDeliveryTruck(truck);
+        warehouseController.bind(warehouse, truck, boxStack);
 
         // Magazijn items: leeg tot de vrachtwagen ze vult
         WarehouseShelf warehouseLeft = new WarehouseShelf(32, 40, "WAREHOUSE-1", warehouse);
@@ -97,8 +103,12 @@ public class StoreFloorView {
 
         // Two cash registers with accompanying chairs
         objects.getChildren().add(new StaffChair(1050, 404).getSprite());
-        objects.getChildren().add(new CashRegister(960, 436).getSprite());
-        objects.getChildren().add(new SelfScanRegister(978, 591).getSprite());
+        CashRegister cashRegister = new CashRegister(960, 436);
+        SelfScanRegister selfScanRegister = new SelfScanRegister(978, 591);
+        cashRegisters.add(cashRegister);
+        selfScanRegisters.add(selfScanRegister);
+        objects.getChildren().add(cashRegister.getSprite());
+        objects.getChildren().add(selfScanRegister.getSprite());
 
     }
 
@@ -114,7 +124,8 @@ public class StoreFloorView {
         if (withStartStock) {
             List<Product> products = new ArrayList<>();
             for (int i = 0; i < START_STOCK; i++) {
-                products.add(new Product("Product " + (i + 1)));
+                Product item = shelf.createStockItem();
+                products.add(item != null ? item : new Product("Product " + (i + 1)));
             }
             shelf.fillShelf(products);
         }
@@ -129,9 +140,19 @@ public class StoreFloorView {
         });
         objects.getChildren().add(sprite);
         if (shelf instanceof WarehouseShelf warehouseShelf) {
+            warehouseShelves.add(warehouseShelf);
             objects.getChildren().addAll(warehouseShelf.getStockSlots());
-        } else if (!(shelf instanceof VegetableShelf) && !(shelf instanceof Freezer) && !(shelf instanceof RegularShelf)) {
-            showStockOnShelf(shelf);
+        } else {
+            warehouseController.registerShopShelf(shelf);
+            if (!(shelf instanceof VegetableShelf) && !(shelf instanceof Freezer) && !(shelf instanceof RegularShelf)) {
+                showStockOnShelf(shelf);
+                shelf.setOnStockChanged(() -> {
+                    refreshStockIcons(shelf);
+                    warehouseController.fillFromAvailableStock();
+                });
+            } else {
+                shelf.setOnStockChanged(warehouseController::fillFromAvailableStock);
+            }
         }
         allShelves.add(shelf);
     }
@@ -180,7 +201,8 @@ public class StoreFloorView {
                 : new VegetableShelf(x, y, warehouse, kind);
 
         List<Product> products = new ArrayList<>();
-        for (int i = 0; i < START_STOCK; i++) {
+        // Drie stuks: één keer pakken raakt het minimum, zodat de vakkenvuller vanuit het magazijn bijvult.
+        for (int i = 0; i < 3; i++) {
             products.add(new FreshProduce(shelf.getKind()));
         }
         shelf.fillShelf(products);
@@ -236,14 +258,53 @@ public class StoreFloorView {
         stockIcons.put(shelf, icons);
     }
 
-    private void takeItemFrom(Shelf shelf) {
-        if (shelf.takeProduct(new Product("TestProduct")) == null) {
+    /**
+     * Koppelt elk schap aan de dichtstbijzijnde loopknoop, zodat klanten en medewerkers erheen kunnen lopen.
+     *
+     * @param nodes alle knopen van de plattegrond
+     */
+    public void bindShelfNodes(List<Node> nodes) {
+        if (nodes == null) {
             return;
         }
+        for (Shelf shelf : allShelves) {
+            Node nearest = null;
+            double best = Double.MAX_VALUE;
+            for (Node node : nodes) {
+                double distance = Math.hypot(node.getX() - shelf.getX(), node.getY() - shelf.getY());
+                if (distance < best) {
+                    best = distance;
+                    nearest = node;
+                }
+            }
+            shelf.setShelfNode(nearest);
+        }
+    }
 
+    /** Tekent de voorraadicoontjes opnieuw nadat een doos of een klant het aantal heeft veranderd. */
+    private void refreshStockIcons(Shelf shelf) {
+        if (!stockIcons.containsKey(shelf)) {
+            return;
+        }
         List<ImageView> icons = stockIcons.get(shelf);
-        if (icons != null && icons.size() > shelf.getCurrentStockCount()) {
-            objects.getChildren().remove(icons.removeLast());
+        if (icons != null) {
+            objects.getChildren().removeAll(icons);
+        }
+        showStockOnShelf(shelf);
+    }
+
+    /**
+     * Haalt één echt artikel van het schap. De naam moet kloppen met wat erop ligt,
+     * anders gebeurt er niets en vraagt het magazijn ook geen aanvulling.
+     *
+     * @param shelf schap waarop geklikt is
+     */
+    private void takeItemFrom(Shelf shelf) {
+        if (shelf.getProducts().isEmpty()) {
+            return;
+        }
+        if (shelf.takeProduct(shelf.getProducts().getFirst()) == null) {
+            return;
         }
     }
 
@@ -253,7 +314,28 @@ public class StoreFloorView {
         }
     }
 
+    /** @return alle schappen, inclusief de magazijnschappen */
     public List<Shelf> getAllShelves() {
         return this.allShelves;
+    }
+
+    /** @return de schappen in het magazijn waar de dozen op komen */
+    public List<WarehouseShelf> getWarehouseShelves() {
+        return warehouseShelves;
+    }
+
+    /** @return de gewone kassa's */
+    public List<CashRegister> getCashRegisters() {
+        return cashRegisters;
+    }
+
+    /** @return de zelfscankassa's */
+    public List<SelfScanRegister> getSelfScanRegisters() {
+        return selfScanRegisters;
+    }
+
+    /** @return de controller die dozen en bijvullen afhandelt */
+    public WarehouseController getWarehouseController() {
+        return warehouseController;
     }
 }

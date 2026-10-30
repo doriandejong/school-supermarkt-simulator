@@ -29,7 +29,8 @@ public class VegetableShelf extends Shelf {
     }
 
     public VegetableShelf(double x, double y, Warehouse warehouse, FreshProduce.Kind kind) {
-        super(x, y, "VEGETABLE-" + kind.name(), 7, 2, warehouse);
+        // Vers: maximaal 8. Eén magazijndoos van 2 vult een kwart van dit schap.
+        super(x, y, "VEGETABLE-" + kind.name(), 8, 2, warehouse);
         this.kind = kind;
         this.filled = new Image(
                 Objects.requireNonNull(VegetableShelf.class.getResourceAsStream(kind.getTexture()))
@@ -47,6 +48,16 @@ public class VegetableShelf extends Shelf {
 
     public FreshProduce.Kind getKind() {
         return kind;
+    }
+
+    /**
+     * Een nieuw exemplaar van de groente of het fruit op dit schap, inclusief de prijs.
+     *
+     * @return een {@link FreshProduce} van dit schap
+     */
+    @Override
+    public Product createStockItem() {
+        return new FreshProduce(kind);
     }
 
     @Override

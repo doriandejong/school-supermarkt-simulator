@@ -45,6 +45,16 @@ public class Freezer extends Shelf {
         return kind;
     }
 
+    /**
+     * Een nieuw exemplaar van het drankje in deze vitrine, inclusief de prijs.
+     *
+     * @return een {@link FrozenProduct} van deze vitrine
+     */
+    @Override
+    public Product createStockItem() {
+        return new FrozenProduct(kind);
+    }
+
     @Override
     public int fillShelf(List<Product> newProducts) {
         int added = super.fillShelf(newProducts);

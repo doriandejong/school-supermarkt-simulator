@@ -50,6 +50,16 @@ public class RegularShelf extends Shelf {
         return kind;
     }
 
+    /**
+     * Een nieuw exemplaar van het vaste soort op dit schap, inclusief de prijs.
+     *
+     * @return een {@link RegularProduct} van dit schap
+     */
+    @Override
+    public Product createStockItem() {
+        return new RegularProduct(kind);
+    }
+
     @Override
     public int fillShelf(List<Product> newProducts) {
         int added = super.fillShelf(newProducts);

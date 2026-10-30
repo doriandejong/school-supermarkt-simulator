@@ -79,6 +79,31 @@ public class WarehouseShelf extends Shelf {
         return slots;
     }
 
+    /**
+     * Een magazijnschap legt verschillende artikelen door elkaar.
+     * Daarom is er geen vast artikel, en accepteert {@link Shelf#accepts(Product)} alles.
+     *
+     * @return null
+     */
+    @Override
+    public Product createStockItem() {
+        return null;
+    }
+
+    /**
+     * Houdt geen prototype vast, anders zou de eerste doos het schap op één artikel vastzetten.
+     *
+     * @param product artikel uit een doos; wordt genegeerd
+     */
+    @Override
+    protected void rememberStockedProduct(Product product) {
+        // Magazijnschappen blijven gemengd.
+    }
+
+    /**
+     * Vult dit schap in één keer met anonieme magazijnproducten.
+     * De normale route is {@code WarehouseController}: die brengt dozen één voor één van de vrachtwagen.
+     */
     public void restockFromTruck() {
         int missing = getCapacity() - getCurrentStockCount();
         List<Product> delivery = new ArrayList<>();
