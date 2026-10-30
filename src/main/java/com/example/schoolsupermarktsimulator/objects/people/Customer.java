@@ -10,6 +10,14 @@ public class Customer extends Person {
 
 	private List<Product> groceryList;
 
+	public Customer(double x, double y, int id, String name) {
+		super(x, y, id, name);
+	}
+
+	public Customer(double x, double y, int id, String name, double speed) {
+		super(x, y, id, name, speed);
+	}
+
 	public void getProduct(Product p) {
 
 	}
