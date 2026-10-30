@@ -107,8 +107,7 @@ public class GameWorld {
         warehouseController.setShelfStocker(bram);
 
         // Sara staat naast de stoel bij de kassa, niet in de klantenrij.
-        cashier = new Cashier(nodeMap.getNode(35), 2, "Sara");
-        cashier.setPosition(1112, 448);
+        cashier = new Cashier(nodeMap.getNode(36), 2, "Sara");
         world.getChildren().add(cashier.sprite);
         cashRegister = floor.getCashRegisters().getFirst();
         // Vooraan bij de band, daarna twee wachtplekken naar links.

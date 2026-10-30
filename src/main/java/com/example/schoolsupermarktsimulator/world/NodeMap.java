@@ -66,23 +66,23 @@ public class NodeMap {
         nodes.add(new Node(30, 800, 540));
 
         // Kassa. De toonbank ligt ongeveer op y 447-529. De rij staat ervoor, niet erin.
-        nodes.add(new Node(31, 900, 560));
-        nodes.add(new Node(32, 980, 560));
-        nodes.add(new Node(33, 1048, 560));
-        nodes.add(new Node(34, 1120, 560));
-        nodes.add(new Node(35, 1112, 470)); // Achter de toonbank, bij de kassamedewerker
-        nodes.add(new Node(36, 1185, 560));
+        nodes.add(new Node(31, 900, 530));
+        nodes.add(new Node(32, 980, 530));
+        nodes.add(new Node(33, 1048, 530));
+        nodes.add(new Node(34, 1120, 530));
+        nodes.add(new Node(35, 1185, 530));
+        nodes.add(new Node(36, 1075, 440)); // Achter de toonbank, bij de kassamedewerker
 
         // Zelfscan. De scanner zit aan de bovenkant van het apparaat (ongeveer y 591).
         // De rij loopt daarlangs, niet onder het apparaat door.
-        nodes.add(new Node(37, 860, 575));
-        nodes.add(new Node(38, 970, 575));
-        nodes.add(new Node(39, 1058, 575));
+        nodes.add(new Node(37, -10, -10));
+        nodes.add(new Node(38, 900, 575));
+        nodes.add(new Node(39, 970, 575));
+        nodes.add(new Node(40, 1058, 575));
 
-        nodes.add(new Node(40, 900, 575));
         nodes.add(new Node(41, 1140, 575));
-        nodes.add(new Node(42, 1170, 575));
-        nodes.add(new Node(43, 1200, 575));
+        nodes.add(new Node(42, -20, -20));
+        nodes.add(new Node(43, -15, -15));
 
         // Naar uitgang
         nodes.add(new Node(44, 1200, 580));
@@ -175,22 +175,17 @@ public class NodeMap {
         connectBidirectional(31, 32);
         connectBidirectional(32, 33);
         connectBidirectional(33, 34);
-        connectBidirectional(34, 36);
-        connectBidirectional(36, 44);
+        connectBidirectional(34, 35);
+        connectBidirectional(35, 44);
 
         // Zelfscan: langs de bovenkant naar de scanner, daarna rechts naar de uitgang.
-        connect(30, 37);
-        connect(37, 38);
+        connect(30, 38);
         connect(38, 39);
-        connect(39, 41);
-        connect(41, 43);
-
-        connect(30, 40);
-        connect(40, 42);
-        connect(42, 43);
+        connect(39, 40);
+        connect(40, 41);
+        connect(41, 44);
 
         // Naar uitgang
-        connect(43, 44);
         connect(44, 45);
         connect(45, 46);
 
@@ -202,6 +197,7 @@ public class NodeMap {
         connectBidirectional(50, 51);
 
         connectBidirectional(48, 52);
+        connectBidirectional(50, 52);
         connectBidirectional(52, 53);
         connectBidirectional(52, 54);
         connectBidirectional(54, 55);
