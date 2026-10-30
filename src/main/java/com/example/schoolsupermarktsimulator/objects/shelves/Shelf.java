@@ -1,6 +1,7 @@
 package com.example.schoolsupermarktsimulator.objects.shelves;
 
 import com.example.schoolsupermarktsimulator.objects.GameObject;
+import com.example.schoolsupermarktsimulator.objects.nodes.Node;
 import com.example.schoolsupermarktsimulator.objects.products.Product;
 import com.example.schoolsupermarktsimulator.objects.warehouse.Warehouse;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public abstract class Shelf extends GameObject {
 
 	private String shelfId;
+	private Node shelfNode;
 	private int capacity;
 	private int minimumInventory;
 	private List<Product> products;
@@ -25,6 +27,10 @@ public abstract class Shelf extends GameObject {
 		this.minimumInventory = minimumInventory;
 		this.warehouse = warehouse;
 		this.products = new ArrayList<>();
+	}
+
+	public Node getShelfNode() {
+		return shelfNode;
 	}
 
 	//	Koppelt de tooltip aan de JavaFX sprite van dit schap.
@@ -61,12 +67,20 @@ public abstract class Shelf extends GameObject {
 		return addedCount;
 	}
 
-	public Product takeProduct() {
+	public Product takeProduct(Product product) {
 		if (products.isEmpty()) {
 			return null;
 		}
 
-		Product product = products.remove(products.size() - 1);
+		Product toRemove = products.stream().filter(p -> product.getName().equals(p.getName())).findFirst().orElse(null);
+		if (toRemove == null) {
+			return null;
+		}
+
+		boolean productWasRemoved = products.remove(toRemove);
+		if (!productWasRemoved) {
+			return null;
+		}
 
 		// Alleen op het moment dat de drempel geraakt wordt, niet als de voorraad er al onder zit
 		if (products.size() == minimumInventory && warehouse != null) {
@@ -74,6 +88,13 @@ public abstract class Shelf extends GameObject {
 		}
 		updateTooltipText();
 		return product;
+	}
+
+	public List<Product> getProducts() {
+		return this.products;
+	}
+	public boolean hasProduct(Product product) {
+		return this.products.stream().anyMatch(p -> product.getName().equals(p.getName()));
 	}
 
 	public int getCurrentStockCount() {

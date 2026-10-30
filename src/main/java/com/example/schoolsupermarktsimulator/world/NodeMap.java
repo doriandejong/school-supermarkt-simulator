@@ -19,9 +19,10 @@ public class NodeMap {
 
     private void createNodes() {
         nodes.add(new Node(0, 1300, 300)); // Buiten de voordeur, offscreen
-        nodes.add(new Node(1, 1260, 300)); // Binnen de winkel, net door de voordeur
+        nodes.add(new Node(1, 1245, 300)); // Binnen de winkel, net door de voordeur
         nodes.add(new Node(2, 1220, 300)); // Eerste kruispunt, kan verder naar links of naar boven
         nodes.add(new Node(3, 1220, 150)); // Boven de voordeur, voor bovenste pad
+
         // Bovenste pad bij schappen
         nodes.add(new Node(4, 1120, 150));
         nodes.add(new Node(5, 990, 150));
@@ -87,6 +88,24 @@ public class NodeMap {
         nodes.add(new Node(44, 1200, 580));
         nodes.add(new Node(45, 1230, 580));
         nodes.add(new Node(46, 1300, 580));
+
+        // Magazijn
+        nodes.add(new Node(47, 440, 280));
+        nodes.add(new Node(48, 380, 280));
+
+        nodes.add(new Node(49, 350, 150));
+        nodes.add(new Node(50, 230, 150));
+        nodes.add(new Node(51, 100,150));
+
+        nodes.add(new Node(52, 260, 320));
+        nodes.add(new Node(53, 200, 320));
+        nodes.add(new Node(54, 260, 450));
+        nodes.add(new Node(55, 190, 450));
+        nodes.add(new Node(56, 130, 450));
+        nodes.add(new Node(57, 70, 450));
+
+        nodes.add(new Node(58, 330, 520));
+        nodes.add(new Node(59, 330, 600));
     }
 
     private void connectNodes() {
@@ -148,6 +167,8 @@ public class NodeMap {
         connectBidirectional(27, 30);
 
         connectBidirectional(11, 30);
+        connectBidirectional(12, 30);
+        connectBidirectional(18, 30);
 
         // Kassa
         connectBidirectional(30, 31);
@@ -173,6 +194,26 @@ public class NodeMap {
         connect(43, 44);
         connect(44, 45);
         connect(45, 46);
+
+        // Magazijn
+        connectBidirectional(19, 47);
+        connectBidirectional(47, 48);
+        connectBidirectional(48, 49);
+        connectBidirectional(49, 50);
+        connectBidirectional(50, 51);
+
+        connectBidirectional(48, 52);
+        connectBidirectional(52, 53);
+        connectBidirectional(52, 54);
+        connectBidirectional(54, 55);
+        connectBidirectional(55, 56);
+        connectBidirectional(56, 57);
+        connectBidirectional(54, 58);
+
+        connectBidirectional(58, 59);
+        connectBidirectional(48, 58);
+        connectBidirectional(48, 54);
+        connectBidirectional(48, 50);
     }
 
     private void connect(int idA, int idB) {

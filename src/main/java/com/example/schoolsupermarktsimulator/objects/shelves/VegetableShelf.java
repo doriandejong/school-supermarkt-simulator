@@ -57,8 +57,8 @@ public class VegetableShelf extends Shelf {
     }
 
     @Override
-    public Product takeProduct() {
-        Product taken = super.takeProduct();
+    public Product takeProduct(Product product) {
+        Product taken = super.takeProduct(product);
         updateTexture();
         return taken;
     }

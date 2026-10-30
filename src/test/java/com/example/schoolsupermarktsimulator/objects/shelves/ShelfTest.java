@@ -37,7 +37,7 @@ class ShelfTest {
         shelf.fillShelf(producten);
 
         // ACT: Pak 1 product (voorraad gaat naar 10) [4]
-        Product gepakt = shelf.takeProduct();
+        Product gepakt = shelf.takeProduct(producten.getFirst());
 
         // ASSERT: Controleer of het aantal klopt [3, 4]
         assertNotNull(gepakt);

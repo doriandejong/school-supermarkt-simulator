@@ -2,6 +2,8 @@ package com.example.schoolsupermarktsimulator.objects.people;
 
 import com.example.schoolsupermarktsimulator.GameEntity;
 import com.example.schoolsupermarktsimulator.objects.nodes.Node;
+import com.example.schoolsupermarktsimulator.objects.nodes.Pathfinder;
+import com.example.schoolsupermarktsimulator.objects.shelves.Shelf;
 import com.example.schoolsupermarktsimulator.objects.warehouse.Truck;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
@@ -14,53 +16,73 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Queue;
+import java.util.stream.Collectors;
 
 public class Person{
 
 	public Circle sprite;
-
 	private final int id;
-
 	private final String name;
-
-	private final double xPos;
-
-	private final double yPos;
 	private List<Node> path;
+	private Queue<Node> walkingRoute = new LinkedList<>();
+	public Node currentNode;
 	private int targetIndex = 0; // De node waar de persoon heen loopt
 	private double speed = 64; // Pixels per seconde
-
 	private Tooltip tooltip;
 
-	public Person(double xPos, double yPos, int id, String name) {
-		this.xPos = xPos;
-		this.yPos = yPos;
+	public Person(Node startNode, int id, String name) {
+		this.currentNode = startNode;
 		this.id = id;
 		this.name = name;
 
-		this.sprite = new Circle(xPos, yPos, 12);
+		this.sprite = new Circle(currentNode.getX(), currentNode.getY(), 12);
 		sprite.setFill(Color.RED);
 
 		setupTooltip();
 	}
 
-	public Person(double xPos, double yPos, int id, String name, double speed) {
-		this.xPos = xPos;
-		this.yPos = yPos;
+	public Person(Node startNode, int id, String name, double speed) {
+		this.currentNode = startNode;
 		this.id = id;
 		this.name = name;
 		this.speed = speed;
 
-		this.sprite = new Circle(xPos, yPos, 12);
+		this.sprite = new Circle(currentNode.getX(), currentNode.getY(), 12);
 		sprite.setFill(Color.RED);
 
 		setupTooltip();
 	}
 
+	public void setWalkingRoute(List<Node> nodes) {
+		walkingRoute.clear();
+		walkingRoute.addAll(nodes);
+		System.out.println(walkingRoute.stream().map(Node::getIdAsString).collect(Collectors.joining(" - ")));
+
+		routeToNextDestination();
+	}
+
+	private void routeToNextDestination() {
+		if (walkingRoute.isEmpty()) {
+			return;
+		}
+
+		Node nextDestination = walkingRoute.poll();
+
+		System.out.println("Pathfinding from " + currentNode.getId() + " to " + nextDestination.getId());
+		List<Node> path = Pathfinder.findPath(currentNode, nextDestination);
+		System.out.println("Found path " + path.stream().map(Node::getIdAsString).collect(Collectors.joining(" - ")));
+		if (path == null || path.isEmpty()) {
+			return;
+		}
+		setPath(path);
+		startMoving();
+	}
+
 	public void setPath(List<Node> newPath) {
-		System.out.println(hasFinishedPath());
 		this.path = newPath;
 		this.targetIndex = 1; // Skip de eerste node, daar staat de persoon al
 
@@ -84,6 +106,10 @@ public class Person{
 				previousTime = now;
 
 				move(dt);
+				if (hasFinishedPath()) {
+					stop();
+					onPathFinished();
+				}
 			}
 		}.start();
 	}
@@ -105,6 +131,7 @@ public class Person{
 		if (distance <= step || distance == 0) {
 			sprite.setCenterX(target.getX());
 			sprite.setCenterY(target.getY());
+			currentNode = target;
 			targetIndex++;
 		// Als persoon verder moet lopen, loop zover als je binnen de dt kunt en stop daar
 		} else {
@@ -118,7 +145,11 @@ public class Person{
 	}
 
 	public boolean hasFinishedPath() {
-		return path != null && targetIndex >= path.size();
+		return path == null || targetIndex >= path.size();
+	}
+
+	private void onPathFinished() {
+		routeToNextDestination();
 	}
 
 	//	Koppelt de tooltip aan de JavaFX sprite van dit schap.

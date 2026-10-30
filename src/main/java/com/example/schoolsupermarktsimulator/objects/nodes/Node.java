@@ -30,6 +30,10 @@ public class Node {
         return id;
     }
 
+    public String getIdAsString() {
+        return String.valueOf(id);
+    }
+
     public double getX() {
         return xPos;
     }

@@ -53,8 +53,8 @@ public class Freezer extends Shelf {
     }
 
     @Override
-    public Product takeProduct() {
-        Product taken = super.takeProduct();
+    public Product takeProduct(Product product) {
+        Product taken = super.takeProduct(product);
         updateTexture();
         return taken;
     }

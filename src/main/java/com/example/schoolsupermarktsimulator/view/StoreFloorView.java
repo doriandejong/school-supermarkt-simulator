@@ -31,7 +31,7 @@ public class StoreFloorView {
 
     // Zelfde startvoorraad als in ShelfTest: na één klik blijft er 10 over.
     private static final int START_STOCK = 11;
-
+    private List<Shelf> allShelves = new ArrayList<>();
     private final Pane objects;
     private final Map<Shelf, List<ImageView>> stockIcons = new HashMap<>();
 
@@ -133,6 +133,7 @@ public class StoreFloorView {
         } else if (!(shelf instanceof VegetableShelf) && !(shelf instanceof Freezer) && !(shelf instanceof RegularShelf)) {
             showStockOnShelf(shelf);
         }
+        allShelves.add(shelf);
     }
 
     private void addRegularShelf(double x, double y, Warehouse warehouse) {
@@ -236,13 +237,13 @@ public class StoreFloorView {
     }
 
     private void takeItemFrom(Shelf shelf) {
-        if (shelf.takeProduct() == null) {
+        if (shelf.takeProduct(new Product("TestProduct")) == null) {
             return;
         }
 
         List<ImageView> icons = stockIcons.get(shelf);
         if (icons != null && icons.size() > shelf.getCurrentStockCount()) {
-            objects.getChildren().remove(icons.remove(icons.size() - 1));
+            objects.getChildren().remove(icons.removeLast());
         }
     }
 
@@ -250,5 +251,9 @@ public class StoreFloorView {
         for (int i = 0; i < 5; i++) {
             objects.getChildren().add(new ProduceBasket(x, y-(i*12)).getSprite());
         }
+    }
+
+    public List<Shelf> getAllShelves() {
+        return this.allShelves;
     }
 }

@@ -96,8 +96,8 @@ public class WarehouseShelf extends Shelf {
     }
 
     @Override
-    public Product takeProduct() {
-        Product taken = super.takeProduct();
+    public Product takeProduct(Product product) {
+        Product taken = super.takeProduct(product);
         refreshStockVisual();
         return taken;
     }

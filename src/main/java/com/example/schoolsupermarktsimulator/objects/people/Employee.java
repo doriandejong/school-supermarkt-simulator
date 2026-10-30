@@ -1,10 +1,13 @@
 package com.example.schoolsupermarktsimulator.objects.people;
 
+import com.example.schoolsupermarktsimulator.objects.nodes.Node;
+
 public class Employee extends Person {
 
-	private String employeeId;
+	private int employeeId;
 
-	public Employee(double x, double y, int id, String name) {
-		super(x, y, id, name);
+	public Employee(Node startNode, int id, String name) {
+		super(startNode, id, name);
+		this.employeeId = id;
 	}
 }
