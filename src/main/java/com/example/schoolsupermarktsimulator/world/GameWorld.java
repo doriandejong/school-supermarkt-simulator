@@ -140,7 +140,6 @@ public class GameWorld {
         supermarket.setManager(noor);
 
         placeCartCorral();
-        placeWarehouseTrolley();
         piet.sprite.toFront();
         kees.sprite.toFront();
         inge.sprite.toFront();
@@ -184,15 +183,6 @@ public class GameWorld {
             cart.setCenter(1148 + i * 22, 375);
             world.getChildren().add(cart);
         }
-    }
-
-    /**
-     * Zet een vulkar in het magazijn, naast de dozen van de vrachtwagen.
-     */
-    private void placeWarehouseTrolley() {
-        StockTrolleyFigure trolley = new StockTrolleyFigure();
-        trolley.setCenter(300, 500);
-        world.getChildren().add(trolley);
     }
 
     /**

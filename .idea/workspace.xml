@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="be3a921f-0b12-4d50-be8d-f11f5aa0e92d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/Spritesheet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/controllers/SupermarketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/controllers/SupermarketController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/controllers/WarehouseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/controllers/WarehouseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/view/SimulationStage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/view/StoreFloorView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/view/StoreFloorView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/GameWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/schoolsupermarktsimulator/world/GameWorld.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/schoolsupermarktsimulator/controllers/WarehouseControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/schoolsupermarktsimulator/controllers/WarehouseControllerTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="be3a921f-0b12-4d50-be8d-f11f5aa0e92d" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
